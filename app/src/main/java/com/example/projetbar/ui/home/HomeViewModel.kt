@@ -6,7 +6,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.projetbar.Bar
+import com.example.projetbar.Welcome1
 import com.example.projetbar.databinding.ActivityMainBinding
+import com.google.gson.Gson
 import org.json.JSONArray
 import org.json.JSONObject
 import io.ktor.client.*
@@ -38,22 +40,17 @@ class HomeViewModel : ViewModel() {
             }
         }
         val responseString = client.get(url).bodyAsText()
-        val jsonObj = JSONObject(responseString)
-        val map = jsonObj.toMap()
-        Log.wtf("wtf", map.toString())
+        var gson = Gson()
+        var testRes = gson.fromJson(responseString, Welcome1::class.java)
 
+        for (result in testRes.results.iterator()) {
 
-        val barTmp = Bar(map)
-        listBars.add(barTmp)
+            val Bartmp = Bar(result)
 
-        for (entry in map.entries.iterator()) {
-            if (entry.key == "results") {
-                Log.wtf("wtf", entry.key)
-                val testRes = JSONObject(entry.value.toString())
-                val jsonTestRes = testRes.toMap()
-                Log.wtf("wtf", jsonTestRes.toString())
-            }
+            println("Bar : "+Bartmp)
         }
+
+
 
     }
 
