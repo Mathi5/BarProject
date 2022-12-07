@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "On se tape des Bars"
+rootProject.name = "projet bar"
 include ':app'
