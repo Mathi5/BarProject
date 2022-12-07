@@ -5,14 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContentProviderCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.projetbar.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
+    private lateinit var viewModel: HomeViewModel
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -34,11 +38,28 @@ class HomeFragment : Fragment() {
             textView.text = it
         }
 
+        binding.rvItem.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL,false)
+
+        /*binding.buttonHome.setOnClickListener { view ->
+            homeViewModel.incrementNum()
+        }*/
+
+        //binding.listeBar.adapter.
+
+
+
         return root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
+        var itemAdapter = ItemAdapter.ItemAdapter(viewModel.listBar)
+        binding.rvItem.adapter = itemAdapter
     }
 }
