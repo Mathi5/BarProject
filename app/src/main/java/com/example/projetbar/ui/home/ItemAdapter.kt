@@ -13,8 +13,7 @@ class ItemAdapter {
 
         class ItemHolder(val binding: ItemListeBinding) : RecyclerView.ViewHolder(binding.root) {
             fun bind(get: Bar) {
-                binding.tvItem.text = get.nom
-                binding.tvItem2.text = "test"
+                binding.tvItem.text = get.name
             }
         }
 

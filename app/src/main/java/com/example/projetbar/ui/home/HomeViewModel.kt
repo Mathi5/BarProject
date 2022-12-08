@@ -26,8 +26,7 @@ class HomeViewModel : ViewModel() {
     private lateinit var _binding: ActivityMainBinding
     var listBars = mutableListOf<Bar>()
 
-    var num = 0
-    private val _text = MutableLiveData<String>().apply {
+    val _text = MutableLiveData<String>().apply {
         value = "Liste des Bars :"
     }
     val text: LiveData<String> = _text
@@ -40,31 +39,21 @@ class HomeViewModel : ViewModel() {
             }
         }
         val responseString = client.get(url).bodyAsText()
-        var gson = Gson()
-        var testRes = gson.fromJson(responseString, Welcome1::class.java)
+        val gson = Gson()
+        val testRes = gson.fromJson(responseString, Welcome1::class.java)
+
+        listBars.clear()
 
         for (result in testRes.results.iterator()) {
-
-            val Bartmp = Bar(result)
-
-            println("Bar : "+Bartmp)
+            listBars.add(Bar(result))
         }
-
-
-
-    }
-
-    fun JSONObject.toMap(): Map<String, *> = keys().asSequence().associateWith {
-        when (val value = this[it])
-        {
-            is JSONArray ->
-            {
-                val map = (0 until value.length()).associate { Pair(it.toString(), value[it]) }
-                JSONObject(map).toMap().values.toList()
-            }
-            is JSONObject -> value.toMap()
-            JSONObject.NULL -> null
-            else            -> value
+        _text.apply {
+            value = "Liste des bars " + listBars.size
         }
+        _text.postValue("Liste des bars " + listBars.size)
+
+
+
+
     }
 }

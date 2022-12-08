@@ -39,10 +39,10 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        lifecycleScope.launch {
 
-            viewModel.getData("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522%2C151.1957362&radius=1500&type=bar&keyword=cruise&key=AIzaSyB6t0WdE2wByUMVO9xP2vCIqiYEKBL0HGo")
-            Log.wtf("wtf", "nb de bars : " + viewModel.listBars.size)
+        viewModel._text.observe(this){
+            Log.wtf("wtf", "coucou 2")
         }
+
     }
 }
