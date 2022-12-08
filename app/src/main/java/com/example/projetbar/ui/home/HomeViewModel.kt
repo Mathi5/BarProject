@@ -3,6 +3,7 @@ package com.example.projetbar.ui.home
 import android.net.http.HttpResponseCache.install
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.projetbar.Bar
@@ -25,22 +26,52 @@ class HomeViewModel : ViewModel() {
 
     private lateinit var _binding: ActivityMainBinding
     var listBars = mutableListOf<Bar>()
+    var lat: String = ""
+    var long: String = ""
+
+
+    /*var localisation: MediatorLiveData<Pair<LiveData<String>?, LiveData<String>?>> = object: MediatorLiveData<Pair<LiveData<String>?, LiveData<String>?>>() {
+        var lat: LiveData<String>? = null
+        var long: LiveData<String>? = null
+        init {
+            addSource(this.lat) { lat ->
+                this.lat = lat
+            }
+
+        }*/
+
 
     val _text = MutableLiveData<String>().apply {
         value = "Liste des Bars :"
     }
     val text: LiveData<String> = _text
+    val _textLat = MutableLiveData<String>().apply {
+        value = ""
+    }
+    val textLat: LiveData<String> = _textLat
 
-    suspend fun getData(url:String){
+
+    suspend fun getData(lati: String, longi: String){
 
         val client = HttpClient(CIO) {
             install(ContentNegotiation){
                 json()
             }
         }
-        val responseString = client.get(url).bodyAsText()
+        //val responseString = client.get(url).bodyAsText()
+        print("nearbysearch test")
+        val str = client.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json") {
+            url {
+                parameters.append("radius", "1500")
+                parameters.append("location", "${lati},${longi}")
+                parameters.append("type", "bar")
+                parameters.append("key", "AIzaSyB6t0WdE2wByUMVO9xP2vCIqiYEKBL0HGo")
+            }
+        }
+        println("url propre : "+str)
+
         val gson = Gson()
-        val testRes = gson.fromJson(responseString, Welcome1::class.java)
+        val testRes = gson.fromJson(str.bodyAsText(), Welcome1::class.java)
 
         listBars.clear()
 
@@ -52,8 +83,13 @@ class HomeViewModel : ViewModel() {
         }
         _text.postValue("Liste des bars " + listBars.size)
 
-
-
-
     }
+
+    fun getLocalisation(x : String, y : String) {
+        lat = x
+        long = y
+        _textLat.postValue(lat)
+        Log.wtf("wtf" , "has obs " + textLat.hasObservers())
+    }
+
 }
