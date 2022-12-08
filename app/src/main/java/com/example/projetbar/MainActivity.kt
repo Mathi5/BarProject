@@ -43,12 +43,11 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+    }
 
-        viewModel._text.observe(this){
-            Log.wtf("wtf", "coucou 2")
-        }
-
-
+    fun goBar(bar:Bar){
+        val transaction = supportFragmentManager.beginTransaction()
+        //transaction.replace(R.id. )
     }
 
 

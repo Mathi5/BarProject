@@ -135,7 +135,6 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
                     // get latitude , longitude and other info from this
                     val lat = location.latitude.toFloat().toString()
                     val long = location.longitude.toFloat().toString()
-                    println("localisation : latitude : $lat, longitude : $long")
                     requestGoogle(lat, long)
                 } else {
                     println("pas de localisation")
@@ -147,7 +146,7 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
 
     override fun onbarlicked(bar: Bar) {
         Log.wtf("wtf", "bar name: " + bar.name)
-        mainActivity.goToBar(bar)
+        mainActivity.goBar(bar)
     }
 
 }
