@@ -55,7 +55,7 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
 
         homeViewModel.text.observe(viewLifecycleOwner) {
         }
-        var mListBars = mutableListOf<Bar>()
+        val mListBars = mutableListOf<Bar>()
         //binding.listeBar.adapter.
         itemAdapter = ItemAdapter.ItemAdapter(mListBars,this)
         binding.rvItem.adapter = itemAdapter

@@ -21,30 +21,11 @@ class HomeViewModel : ViewModel() {
 
     private lateinit var _binding: ActivityMainBinding
     var listBars = mutableListOf<Bar>()
-    var lat: String = ""
-    var long: String = ""
-
-
-    /*var localisation: MediatorLiveData<Pair<LiveData<String>?, LiveData<String>?>> = object: MediatorLiveData<Pair<LiveData<String>?, LiveData<String>?>>() {
-        var lat: LiveData<String>? = null
-        var long: LiveData<String>? = null
-        init {
-            addSource(this.lat) { lat ->
-                this.lat = lat
-            }
-
-        }*/
-
 
     val _text = MutableLiveData<String>().apply {
         value = "Liste des Bars :"
     }
     val text: LiveData<String> = _text
-    val _textLat = MutableLiveData<String>().apply {
-        value = ""
-    }
-    val textLat: LiveData<String> = _textLat
-
 
     suspend fun getData(lati: String, longi: String){
 
@@ -53,7 +34,7 @@ class HomeViewModel : ViewModel() {
                 json()
             }
         }
-        //val responseString = client.get(url).bodyAsText()
+
         print("nearbysearch test")
         val str = client.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json") {
             url {
@@ -78,13 +59,6 @@ class HomeViewModel : ViewModel() {
         }
         _text.postValue("Liste des bars " + listBars.size)
 
-    }
-
-    fun getLocalisation(x : String, y : String) {
-        lat = x
-        long = y
-        _textLat.postValue(lat)
-        Log.wtf("wtf" , "has obs " + textLat.hasObservers())
     }
 
 }

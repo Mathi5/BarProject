@@ -13,6 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.projetbar.databinding.ActivityMainBinding
+import com.example.projetbar.ui.detail.DetailFragementViewModel
 import com.example.projetbar.ui.home.HomeViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -22,11 +23,14 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: HomeViewModel
+    private lateinit var detailModel: DetailFragementViewModel
+    public lateinit var barDetails: Bar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        detailModel = ViewModelProvider(this).get(DetailFragementViewModel::class.java)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -46,6 +50,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun goBar(bar:Bar){
+        this.barDetails = bar
         val transaction = supportFragmentManager.beginTransaction()
         //transaction.replace(R.id. )
     }
