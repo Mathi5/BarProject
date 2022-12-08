@@ -8,19 +8,22 @@ import com.example.projetbar.databinding.ItemListeBinding
 
 
 class ItemAdapter {
-    class ItemAdapter(var datalist:List<Bar>): RecyclerView.Adapter<ItemAdapter.ItemHolder>() {
+    class ItemAdapter(var datalist:List<Bar>, val barCLickInterface:OnBarCLickedListener): RecyclerView.Adapter<ItemAdapter.ItemHolder>() {
 
 
-        class ItemHolder(val binding: ItemListeBinding) : RecyclerView.ViewHolder(binding.root) {
+        class ItemHolder(val binding: ItemListeBinding , val barCLickedListener: OnBarCLickedListener ) : RecyclerView.ViewHolder(binding.root) {
             fun bind(get: Bar) {
                 binding.tvItem.text = get.name
+                binding.tvItem.setOnClickListener {
+                    barCLickedListener.onbarlicked(get)
+                }
             }
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
             val binding = ItemListeBinding
                 .inflate(LayoutInflater.from(parent.context), parent, false)
-            return ItemHolder(binding)
+            return ItemHolder(binding, barCLickInterface)
         }
 
 
@@ -32,4 +35,9 @@ class ItemAdapter {
             return datalist.size
         }
     }
+
+    interface OnBarCLickedListener{
+        fun onbarlicked(bar:Bar)
+    }
+
 }

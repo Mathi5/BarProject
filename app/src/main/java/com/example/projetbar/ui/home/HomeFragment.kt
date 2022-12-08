@@ -1,6 +1,7 @@
 package com.example.projetbar.ui.home
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -16,17 +17,20 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.projetbar.Bar
+import com.example.projetbar.MainActivity
 import com.example.projetbar.databinding.FragmentHomeBinding
 import kotlinx.coroutines.launch
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
 
     private var _binding: FragmentHomeBinding? = null
     private lateinit var viewModel: HomeViewModel
     private lateinit var itemAdapter : ItemAdapter.ItemAdapter
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var mainActivity: MainActivity
 
 
     // This property is only valid between onCreateView and
@@ -51,17 +55,25 @@ class HomeFragment : Fragment() {
 
         homeViewModel.text.observe(viewLifecycleOwner) {
         }
+        var mListBars = mutableListOf<Bar>()
+        //binding.listeBar.adapter.
+        itemAdapter = ItemAdapter.ItemAdapter(mListBars,this)
+        binding.rvItem.adapter = itemAdapter
 
         binding.rvItem.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL,false)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         getLastKnownLocation()
 
-        //binding.listeBar.adapter.
-
 
 
         return root
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        this.mainActivity = context as MainActivity
+
     }
 
     override fun onDestroyView() {
@@ -86,9 +98,9 @@ class HomeFragment : Fragment() {
             //var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522%2C151.1957362&radius=1500&type=bar&key=AIzaSyB6t0WdE2wByUMVO9xP2vCIqiYEKBL0HGo"
             //println(url)
             viewModel.getData(lat, long)
+            itemAdapter.datalist = viewModel.listBars
+            itemAdapter.notifyDataSetChanged()
             //println("url récupéré, latitude: ${lat}, longitude: ${long}")
-            itemAdapter = ItemAdapter.ItemAdapter(viewModel.listBars)
-            binding.rvItem.adapter = itemAdapter
         }
     }
 
@@ -131,6 +143,11 @@ class HomeFragment : Fragment() {
 
             }
 
+    }
+
+    override fun onbarlicked(bar: Bar) {
+        Log.wtf("wtf", "bar name: " + bar.name)
+        mainActivity.goToBar(bar)
     }
 
 }

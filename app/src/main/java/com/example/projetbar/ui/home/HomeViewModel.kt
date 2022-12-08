@@ -1,17 +1,15 @@
 package com.example.projetbar.ui.home
 
-import android.net.http.HttpResponseCache.install
 import android.util.Log
+import android.widget.Button
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.projetbar.Bar
 import com.example.projetbar.Welcome1
 import com.example.projetbar.databinding.ActivityMainBinding
+import com.example.projetbar.ui.DetailFragment
 import com.google.gson.Gson
-import org.json.JSONArray
-import org.json.JSONObject
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
@@ -19,7 +17,6 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.serialization.kotlinx.json.*
-import kotlinx.coroutines.launch
 
 
 class HomeViewModel : ViewModel() {
@@ -28,6 +25,7 @@ class HomeViewModel : ViewModel() {
     var listBars = mutableListOf<Bar>()
     var lat: String = ""
     var long: String = ""
+    val detailsfrag = DetailFragment()
 
 
     /*var localisation: MediatorLiveData<Pair<LiveData<String>?, LiveData<String>?>> = object: MediatorLiveData<Pair<LiveData<String>?, LiveData<String>?>>() {
