@@ -20,15 +20,15 @@ import io.ktor.serialization.kotlinx.json.*
 class HomeViewModel : ViewModel() {
 
     private lateinit var _binding: ActivityMainBinding
-    public lateinit var selectedBar: Bar
-    public lateinit var _detailBarName: MutableLiveData<String>
-    public lateinit var detailBarName: LiveData<String>
-    public lateinit var _detailBarOpen: MutableLiveData<String>
-    public lateinit var detailBarOpen: LiveData<String>
-    public lateinit var _detailBarRating: MutableLiveData<String>
-    public lateinit var detailBarRating: LiveData<String>
-    public lateinit var _detailBarVicinity: MutableLiveData<String>
-    public lateinit var detailBarVicinity: LiveData<String>
+    var selectedBar: Bar? = null
+    var _detailBarName= MutableLiveData<String>()
+    var detailBarName:LiveData<String> =  _detailBarName
+    var _detailBarOpen = MutableLiveData<String>()
+    var detailBarOpen:LiveData<String> = _detailBarOpen
+    var _detailBarRating = MutableLiveData<String>()
+    var detailBarRating:LiveData<String> = _detailBarRating
+    var _detailBarVicinity = MutableLiveData<String>()
+    var detailBarVicinity:LiveData<String> = _detailBarVicinity
 
     fun getSelectedBar(bar: Bar) {
         selectedBar = bar
@@ -37,6 +37,7 @@ class HomeViewModel : ViewModel() {
             value = bar.name
         }
         detailBarName = _detailBarName
+
 
         _detailBarOpen = MutableLiveData<String>().apply {
             if(bar.openingHours != null) {
@@ -57,6 +58,7 @@ class HomeViewModel : ViewModel() {
         }
         detailBarVicinity = _detailBarVicinity
 
+
         println("infos bar cliqué : $detailBarName , $detailBarOpen , $detailBarRating , $detailBarVicinity" )
     }
 
@@ -67,17 +69,24 @@ class HomeViewModel : ViewModel() {
     }
     val text: LiveData<String> = _text
 
+    fun initTextView(){
+        Log.wtf("wtf", "bar name" + detailBarName.value)
+        if(selectedBar != null){
+            this._detailBarName.postValue(selectedBar?.name.toString())
+            this._detailBarOpen.postValue(selectedBar?.openingHours.toString())
+            this._detailBarRating.postValue(selectedBar?.rating.toString())
+            this._detailBarVicinity.postValue(selectedBar?.vicinity)
+        }
+
+    }
+
     suspend fun getData(lati: String, longi: String){
-        println("abcd : getData")
-
-
         val client = HttpClient(CIO) {
             install(ContentNegotiation){
                 json()
             }
         }
 
-        print("nearbysearch test")
         val str = client.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json") {
             url {
                 parameters.append("radius", "1500")
@@ -86,7 +95,6 @@ class HomeViewModel : ViewModel() {
                 parameters.append("key", "AIzaSyB6t0WdE2wByUMVO9xP2vCIqiYEKBL0HGo")
             }
         }
-        println("url propre : "+str)
 
         val gson = Gson()
         val testRes = gson.fromJson(str.bodyAsText(), Welcome1::class.java)

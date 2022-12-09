@@ -2,6 +2,7 @@ package com.example.projetbar.ui.detail
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -27,15 +28,15 @@ class DetailFragement : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val detailViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-
+            ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
+        Log.wtf("wtf", "selectedbar " + detailViewModel.selectedBar)
         _binding = FragmentDetailFragementBinding.inflate(inflater, container, false)
 
         val root: View = binding.root
 
-        val textName: TextView = binding.name
+
         detailViewModel.detailBarName.observe(viewLifecycleOwner) {
-            textName.text = it
+            binding.name.text = it
         }
 
         val textOpen: TextView = binding.open
@@ -53,8 +54,12 @@ class DetailFragement : Fragment() {
             textVicinity.text = it
         }
 
-        return inflater.inflate(R.layout.fragment_detail_fragement, container, false)
+
+        detailViewModel.initTextView()
+        return binding.root
     }
+
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

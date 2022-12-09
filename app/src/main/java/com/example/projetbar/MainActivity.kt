@@ -1,21 +1,28 @@
 package com.example.projetbar
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.projetbar.databinding.ActivityMainBinding
+import com.example.projetbar.ui.detail.DetailFragement
+import com.example.projetbar.ui.home.HomeFragment
 import com.example.projetbar.ui.home.HomeViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlin.concurrent.fixedRateTimer
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: HomeViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -23,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         // Passing each menu ID as a set of Ids because each
@@ -34,8 +40,34 @@ class MainActivity : AppCompatActivity() {
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        binding.navView.setupWithNavController(navController)
 
+    }
+
+    fun goBar(){
+        Log.wtf("wtf", "selected bar " + viewModel.selectedBar?.name )
+        var fr = supportFragmentManager
+        binding.navView.removeAllViews()
+        addFragment(R.id.nav_host_fragment_activity_main, DetailFragement())
+        replaceFragment(R.id.nav_host_fragment_activity_main, DetailFragement())
+        removeFragment(HomeFragment())
+    }
+
+    fun FragmentManager.doTransaction(func: FragmentTransaction.() ->
+    FragmentTransaction) {
+        beginTransaction().func().commit()
+    }
+
+    fun AppCompatActivity.addFragment(frameId: Int, fragment: Fragment){
+        supportFragmentManager.doTransaction { add(frameId, fragment) }
+    }
+
+    fun AppCompatActivity.replaceFragment(frameId: Int, fragment: Fragment) {
+        supportFragmentManager.doTransaction{replace(frameId, fragment)}
+    }
+
+    fun AppCompatActivity.removeFragment(fragment: Fragment) {
+        supportFragmentManager.doTransaction{remove(fragment)}
     }
 
 
