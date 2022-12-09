@@ -31,7 +31,7 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
     private lateinit var itemAdapter : ItemAdapter.ItemAdapter
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var mainActivity: MainActivity
-
+    var inDetail: Boolean = false
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -43,7 +43,7 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
         savedInstanceState: Bundle?
     ): View {
         val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+            ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -146,9 +146,12 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
     }
 
     override fun onbarclicked(bar: Bar) {
-        Log.wtf("wtf", "bar name: " + bar.name)
-        //mainActivity.goBar(bar)
-        viewModel.getSelectedBar(bar)
+        if (!inDetail){
+            inDetail = true
+            Log.wtf("wtf", "bar name: " + bar.name)
+            viewModel.getSelectedBar(bar)
+            mainActivity.goBar()
+        }
     }
 
 }
