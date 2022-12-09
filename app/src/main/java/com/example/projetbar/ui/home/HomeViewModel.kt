@@ -39,20 +39,25 @@ class HomeViewModel : ViewModel() {
         detailBarName = _detailBarName
 
         _detailBarOpen = MutableLiveData<String>().apply {
-            value = bar.openingHours
+            if(bar.openingHours != null) {
+                value = "ouvert : "+bar.openingHours.toString()
+            } else {
+                value = "ouvert : info indisponible"
+            }
         }
         detailBarOpen = _detailBarOpen
 
         _detailBarRating = MutableLiveData<String>().apply {
-            value = bar.rating.toString()
+            value = "note : "+bar.rating.toString()
         }
         detailBarRating = _detailBarRating
 
         _detailBarVicinity = MutableLiveData<String>().apply {
-            value = bar.vicinity
+            value = "adresse : "+bar.vicinity
         }
         detailBarVicinity = _detailBarVicinity
 
+        println("infos bar cliqué : $detailBarName , $detailBarOpen , $detailBarRating , $detailBarVicinity" )
     }
 
     var listBars = mutableListOf<Bar>()
@@ -63,6 +68,8 @@ class HomeViewModel : ViewModel() {
     val text: LiveData<String> = _text
 
     suspend fun getData(lati: String, longi: String){
+        println("abcd : getData")
+
 
         val client = HttpClient(CIO) {
             install(ContentNegotiation){

@@ -89,6 +89,8 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
     }
 
     fun requestGoogle(lat: String, long: String){
+        println("abcd : requestGoogle")
+
         lifecycleScope.launch {
             //val url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat}%2C${long}&radius=1500&type=bar&key=AIzaSyB6t0WdE2wByUMVO9xP2vCIqiYEKBL0HGo"
 
@@ -108,6 +110,7 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
     }
 
     fun getLastKnownLocation() {
+        println("abcd : getLastKnownLocation")
         if (ActivityCompat.checkSelfPermission(
                 requireActivity(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -123,7 +126,7 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
-            println("localisation : pas de permission")
+            println("abcd : pas de permission")
             return
         }
         fusedLocationClient.lastLocation
@@ -135,7 +138,7 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
                     val long = location.longitude.toFloat().toString()
                     requestGoogle(lat, long)
                 } else {
-                    println("pas de localisation")
+                    println("abcd : pas de localisation")
                 }
 
             }

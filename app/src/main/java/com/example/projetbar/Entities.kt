@@ -2,7 +2,7 @@ package com.example.projetbar
 
 class Bar {
     var name: String = ""
-    var openingHours: String = ""
+    var openingHours: Boolean? = null
     var rating: Double = 0.0
     var vicinity: String = ""
     //var loca: String = ""
@@ -12,7 +12,9 @@ class Bar {
 
     constructor(result: com.example.projetbar.Result) {
         name = result.name
-        openingHours = result.openingHours.toString()
+        if (result.openingHours != null) {
+            openingHours = result.openingHours.openNow
+        }
         rating  = result.rating
         vicinity = result.vicinity
     }

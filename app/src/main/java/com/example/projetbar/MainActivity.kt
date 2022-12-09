@@ -38,10 +38,5 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    /*fun goBar(bar:Bar){
-        viewModel.getSelectedBar(bar)
-        val transaction = supportFragmentManager.beginTransaction()
-    }*/
-
 
 }
