@@ -53,8 +53,6 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
             textView.text = it
         }
 
-        homeViewModel.text.observe(viewLifecycleOwner) {
-        }
         val mListBars = mutableListOf<Bar>()
         //binding.listeBar.adapter.
         itemAdapter = ItemAdapter.ItemAdapter(mListBars,this)
@@ -144,9 +142,10 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
 
     }
 
-    override fun onbarlicked(bar: Bar) {
+    override fun onbarclicked(bar: Bar) {
         Log.wtf("wtf", "bar name: " + bar.name)
-        mainActivity.goBar(bar)
+        //mainActivity.goBar(bar)
+        viewModel.getSelectedBar(bar)
     }
 
 }

@@ -15,7 +15,7 @@ class ItemAdapter {
             fun bind(get: Bar) {
                 binding.tvItem.text = get.name
                 binding.tvItem.setOnClickListener {
-                    barCLickedListener.onbarlicked(get)
+                    barCLickedListener.onbarclicked(get)
                 }
             }
         }
@@ -37,7 +37,7 @@ class ItemAdapter {
     }
 
     interface OnBarCLickedListener{
-        fun onbarlicked(bar:Bar)
+        fun onbarclicked(bar:Bar)
     }
 
 }

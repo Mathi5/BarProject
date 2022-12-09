@@ -20,6 +20,41 @@ import io.ktor.serialization.kotlinx.json.*
 class HomeViewModel : ViewModel() {
 
     private lateinit var _binding: ActivityMainBinding
+    public lateinit var selectedBar: Bar
+    public lateinit var _detailBarName: MutableLiveData<String>
+    public lateinit var detailBarName: LiveData<String>
+    public lateinit var _detailBarOpen: MutableLiveData<String>
+    public lateinit var detailBarOpen: LiveData<String>
+    public lateinit var _detailBarRating: MutableLiveData<String>
+    public lateinit var detailBarRating: LiveData<String>
+    public lateinit var _detailBarVicinity: MutableLiveData<String>
+    public lateinit var detailBarVicinity: LiveData<String>
+
+    fun getSelectedBar(bar: Bar) {
+        selectedBar = bar
+
+        _detailBarName = MutableLiveData<String>().apply {
+            value = bar.name
+        }
+        detailBarName = _detailBarName
+
+        _detailBarOpen = MutableLiveData<String>().apply {
+            value = bar.openingHours
+        }
+        detailBarOpen = _detailBarOpen
+
+        _detailBarRating = MutableLiveData<String>().apply {
+            value = bar.rating.toString()
+        }
+        detailBarRating = _detailBarRating
+
+        _detailBarVicinity = MutableLiveData<String>().apply {
+            value = bar.vicinity
+        }
+        detailBarVicinity = _detailBarVicinity
+
+    }
+
     var listBars = mutableListOf<Bar>()
 
     val _text = MutableLiveData<String>().apply {

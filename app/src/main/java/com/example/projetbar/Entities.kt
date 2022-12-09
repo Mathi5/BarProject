@@ -2,8 +2,9 @@ package com.example.projetbar
 
 class Bar {
     var name: String = ""
-    var price_level: Long = 0
+    var openingHours: String = ""
     var rating: Double = 0.0
+    var vicinity: String = ""
     //var loca: String = ""
     //var x: Int = 0
     //var y: Int = 0
@@ -11,11 +12,12 @@ class Bar {
 
     constructor(result: com.example.projetbar.Result) {
         name = result.name
-        price_level = result.priceLevel
+        openingHours = result.openingHours.toString()
         rating  = result.rating
+        vicinity = result.vicinity
     }
 
     override fun toString(): String {
-        return this.name + " " + this.price_level + " " + this.rating
+        return this.name + " " + this.openingHours + " " + this.rating + " " + this.vicinity
     }
 }

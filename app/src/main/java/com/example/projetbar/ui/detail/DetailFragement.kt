@@ -20,21 +20,37 @@ class DetailFragement : Fragment() {
     }
 
     private var _binding: FragmentDetailFragementBinding? = null
-    private lateinit var viewModel: DetailFragementViewModel
+    private lateinit var viewModel: HomeViewModel
     private lateinit var mainActivity: MainActivity
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val detailViewModel =
-            ViewModelProvider(this).get(DetailFragementViewModel::class.java)
+            ViewModelProvider(this).get(HomeViewModel::class.java)
 
         _binding = FragmentDetailFragementBinding.inflate(inflater, container, false)
+
         val root: View = binding.root
 
         val textName: TextView = binding.name
-        detailViewModel.text.observe(viewLifecycleOwner) {
+        detailViewModel.detailBarName.observe(viewLifecycleOwner) {
             textName.text = it
+        }
+
+        val textOpen: TextView = binding.open
+        detailViewModel.detailBarOpen.observe(viewLifecycleOwner) {
+            textOpen.text = it
+        }
+
+        val textRating: TextView = binding.ratings
+        detailViewModel.detailBarRating.observe(viewLifecycleOwner) {
+            textRating.text = it
+        }
+
+        val textVicinity: TextView = binding.vicinity
+        detailViewModel.detailBarVicinity.observe(viewLifecycleOwner) {
+            textVicinity.text = it
         }
 
         return inflater.inflate(R.layout.fragment_detail_fragement, container, false)
@@ -42,8 +58,13 @@ class DetailFragement : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(DetailFragementViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         // TODO: Use the ViewModel
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }
