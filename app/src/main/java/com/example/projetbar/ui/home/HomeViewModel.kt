@@ -105,9 +105,9 @@ class HomeViewModel : ViewModel() {
             listBars.add(Bar(result))
         }
         _text.apply {
-            value = "Liste des bars " + listBars.size
+            value = "Bars proches : " + listBars.size
         }
-        _text.postValue("Liste des bars " + listBars.size)
+        _text.postValue("Bars proches : " + listBars.size)
 
     }
 
