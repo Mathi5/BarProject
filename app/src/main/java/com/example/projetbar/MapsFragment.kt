@@ -13,9 +13,11 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.example.projetbar.ui.home.HomeViewModel
 
 class MapsFragment : Fragment() {
 
+    private lateinit var viewModel: HomeViewModel
     private val callback = OnMapReadyCallback { googleMap ->
         /**
          * Manipulates the map once available.
@@ -26,9 +28,10 @@ class MapsFragment : Fragment() {
          * install it inside the SupportMapFragment. This method will only be triggered once the
          * user has installed Google Play services and returned to the app.
          */
-        val sydney = LatLng(-34.0, 151.0)
-        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        viewModel.getPosition()
+        val barSelected = LatLng(-34.0, 151.0)
+        googleMap.addMarker(MarkerOptions().position(barSelected).title("Marker on selected bar"))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(barSelected))
     }
 
     override fun onCreateView(

@@ -21,6 +21,8 @@ class HomeViewModel : ViewModel() {
 
     private lateinit var _binding: ActivityMainBinding
     var selectedBar: Bar? = null
+    var mapLat: Double = 0.0
+    var mapLng: Double = 0.0
     var _detailBarName= MutableLiveData<String>()
     var detailBarName:LiveData<String> =  _detailBarName
     var _detailBarOpen = MutableLiveData<String>()
@@ -109,6 +111,11 @@ class HomeViewModel : ViewModel() {
         }
         _text.postValue("Bars proches : " + listBars.size)
 
+    }
+
+    fun getPosition(bar: Bar) {
+        mapLng = bar.lng
+        mapLat = bar.lat
     }
 
 }
