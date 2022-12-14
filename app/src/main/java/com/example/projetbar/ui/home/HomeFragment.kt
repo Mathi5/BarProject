@@ -92,15 +92,10 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
         println("abcd : requestGoogle")
 
         lifecycleScope.launch {
-            //val url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat}%2C${long}&radius=1500&type=bar&key=AIzaSyB6t0WdE2wByUMVO9xP2vCIqiYEKBL0HGo"
 
-
-            //var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522%2C151.1957362&radius=1500&type=bar&key=AIzaSyB6t0WdE2wByUMVO9xP2vCIqiYEKBL0HGo"
-            //println(url)
             viewModel.getData(lat, long)
             itemAdapter.datalist = viewModel.listBars
             itemAdapter.notifyDataSetChanged()
-            //println("url récupéré, latitude: ${lat}, longitude: ${long}")
         }
     }
 

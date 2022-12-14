@@ -54,12 +54,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun goMap(){
-        Log.wtf("wtf", "selected bar " + viewModel.selectedBar?.name )
+
         var fr = supportFragmentManager
         binding.navView.removeAllViews()
         addFragment(R.id.frameLayout, MapsFragment())
         replaceFragment(R.id.frameLayout, MapsFragment())
         removeFragment(DetailFragement())
+        println("maplog : map displayed")
     }
 
     fun FragmentManager.doTransaction(func: FragmentTransaction.() ->

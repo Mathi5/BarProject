@@ -1,5 +1,6 @@
 package com.example.projetbar.ui.detail
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -7,7 +8,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projetbar.Bar
 import com.example.projetbar.MainActivity
@@ -26,8 +30,11 @@ class DetailFragement : Fragment() {
 
     private var _binding: FragmentDetailFragementBinding? = null
     private lateinit var viewModel: HomeViewModel
+    //private val viewModel: HomeViewModel by activityViewModels()
     private lateinit var mainActivity: MainActivity
     private val binding get() = _binding!!
+    private lateinit var btnMap: ImageView
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -59,6 +66,9 @@ class DetailFragement : Fragment() {
         }
 
 
+
+
+
         detailViewModel.initTextView()
         return binding.root
     }
@@ -69,6 +79,22 @@ class DetailFragement : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         // TODO: Use the ViewModel
+
+        // Compléter l'appel de la map au clic
+        println("maplog : activity created")
+        btnMap = view?.findViewById(R.id.imageMap) as ImageView
+        btnMap.setOnClickListener {
+            println("maplog : button clicked")
+            mainActivity.goMap()
+        }
+
+
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        this.mainActivity = context as MainActivity
+
     }
 
     override fun onDestroyView() {
@@ -76,19 +102,7 @@ class DetailFragement : Fragment() {
         _binding = null
     }
 
-    // Compléter l'appel de la map au clic
 
-    override fun onmapclicked() {
-        mainActivity.goBar()
-    }
-
-    class MapHolder(val binding: FragmentDetailFragementBinding, val mapCLickedListener: OnMapCLickedListener) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(get: Bar) {
-            binding.imageMap.setOnClickListener {
-
-            }
-        }
-    }
 
 
 }

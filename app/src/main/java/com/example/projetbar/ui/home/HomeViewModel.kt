@@ -1,6 +1,9 @@
 package com.example.projetbar.ui.home
 
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.util.Log
+import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -62,8 +65,7 @@ class HomeViewModel : ViewModel() {
 
         getPosition(bar)
 
-
-        println("infos bar cliqué : $detailBarName , $detailBarOpen , $detailBarRating , $detailBarVicinity, $mapLat, $mapLng" )
+        println("maplog : HomeViewModel/getSelectedBar - mapLat = $mapLat , mapLng = $mapLng")
     }
 
     var listBars = mutableListOf<Bar>()
@@ -116,8 +118,10 @@ class HomeViewModel : ViewModel() {
     }
 
     fun getPosition(bar: Bar) {
+
         mapLng = bar.lng
         mapLat = bar.lat
+        println("maplog : getPosition - mapLat = $mapLat , mapLng = $mapLng")
     }
 
 }
