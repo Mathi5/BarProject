@@ -60,8 +60,10 @@ class HomeViewModel : ViewModel() {
         }
         detailBarVicinity = _detailBarVicinity
 
+        getPosition(bar)
 
-        println("infos bar cliqué : $detailBarName , $detailBarOpen , $detailBarRating , $detailBarVicinity" )
+
+        println("infos bar cliqué : $detailBarName , $detailBarOpen , $detailBarRating , $detailBarVicinity, $mapLat, $mapLng" )
     }
 
     var listBars = mutableListOf<Bar>()

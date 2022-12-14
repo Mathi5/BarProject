@@ -53,6 +53,15 @@ class MainActivity : AppCompatActivity() {
         removeFragment(HomeFragment())
     }
 
+    fun goMap(){
+        Log.wtf("wtf", "selected bar " + viewModel.selectedBar?.name )
+        var fr = supportFragmentManager
+        binding.navView.removeAllViews()
+        addFragment(R.id.frameLayout, MapsFragment())
+        replaceFragment(R.id.frameLayout, MapsFragment())
+        removeFragment(DetailFragement())
+    }
+
     fun FragmentManager.doTransaction(func: FragmentTransaction.() ->
     FragmentTransaction) {
         beginTransaction().func().commit()

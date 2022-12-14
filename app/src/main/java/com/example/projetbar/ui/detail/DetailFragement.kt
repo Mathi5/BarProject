@@ -8,11 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.example.projetbar.Bar
 import com.example.projetbar.MainActivity
 import com.example.projetbar.R
 import com.example.projetbar.databinding.FragmentDetailFragementBinding
 import com.example.projetbar.databinding.FragmentHomeBinding
+import com.example.projetbar.databinding.ItemListeBinding
 import com.example.projetbar.ui.home.HomeViewModel
+import com.example.projetbar.ui.home.ItemAdapter
 
 class DetailFragement : Fragment() {
 
@@ -71,5 +75,20 @@ class DetailFragement : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    // Compléter l'appel de la map au clic
+
+    override fun onmapclicked() {
+        mainActivity.goBar()
+    }
+
+    class MapHolder(val binding: FragmentDetailFragementBinding, val mapCLickedListener: OnMapCLickedListener) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(get: Bar) {
+            binding.imageMap.setOnClickListener {
+
+            }
+        }
+    }
+
 
 }

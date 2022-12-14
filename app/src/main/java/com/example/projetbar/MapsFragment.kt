@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -18,6 +19,7 @@ import com.example.projetbar.ui.home.HomeViewModel
 class MapsFragment : Fragment() {
 
     private lateinit var viewModel: HomeViewModel
+
     private val callback = OnMapReadyCallback { googleMap ->
         /**
          * Manipulates the map once available.
@@ -28,8 +30,8 @@ class MapsFragment : Fragment() {
          * install it inside the SupportMapFragment. This method will only be triggered once the
          * user has installed Google Play services and returned to the app.
          */
-        viewModel.getPosition()
-        val barSelected = LatLng(-34.0, 151.0)
+        //viewModel.getPosition()
+        val barSelected = LatLng(viewModel.mapLat, viewModel.mapLng)
         googleMap.addMarker(MarkerOptions().position(barSelected).title("Marker on selected bar"))
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(barSelected))
     }
