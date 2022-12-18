@@ -21,11 +21,11 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.example.projetbar.ui.home.HomeViewModel
 
-class MapsFragment : Fragment(), OnMapReadyCallback {
+class MapsFragment : Fragment() {
 
     private lateinit var _binding: FragmentMapsBinding
     private val viewModel: HomeViewModel by activityViewModels()
-    private var mMap: GoogleMap ? = null
+    //private var mMap: GoogleMap ? = null
 
     private val binding get() = _binding
 
@@ -56,28 +56,33 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         _binding = FragmentMapsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        SetMap()
+        //SetMap()
 
         return root
     }
 
-    /*override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
-        println("maplog : map loaded")
-    }*/
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
+        mapFragment.getMapAsync { googleMap ->
+            val barSelected = LatLng(viewModel.mapLat, viewModel.mapLng)
+            googleMap.addMarker(MarkerOptions().position(barSelected).title(viewModel.selectedBar?.name))
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(barSelected, 10f))
+            println("maplog : map callback - lat = "+viewModel.mapLat+" lng = "+viewModel.mapLng)
+        }
+        //println("maplog : map loaded")
+    }
 
-    private fun SetMap() {
+    /*private fun SetMap() {
         if (mMap == null) {
             val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
             mapFragment.getMapAsync(this)
 
             println("maplog : map loaded")
         }
-    }
+    }*/
 
-    override fun onMapReady(googleMap: GoogleMap) {
+    /*override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
         val barSelected = LatLng(viewModel.mapLat, viewModel.mapLng)
@@ -85,5 +90,5 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         mMap!!.moveCamera(CameraUpdateFactory.newLatLng(barSelected))
         //mMap!!.moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(barSelected, 15f))
         println("maplog : map callback - lat = "+viewModel.mapLat+" lng = "+viewModel.mapLng)
-    }
+    }*/
 }
