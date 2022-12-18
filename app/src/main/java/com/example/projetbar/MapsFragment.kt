@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.projetbar.databinding.ActivityMainBinding.inflate
 import com.example.projetbar.databinding.FragmentDashboardBinding.inflate
 import com.example.projetbar.databinding.FragmentDetailFragementBinding
+import com.example.projetbar.databinding.FragmentMapsBinding
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -20,12 +21,15 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.example.projetbar.ui.home.HomeViewModel
 
-class MapsFragment : Fragment() {
+class MapsFragment : Fragment(), OnMapReadyCallback {
 
+    private lateinit var _binding: FragmentMapsBinding
     private val viewModel: HomeViewModel by activityViewModels()
-    private lateinit var mMap: GoogleMap
+    private var mMap: GoogleMap ? = null
 
-    private val callback = OnMapReadyCallback { googleMap ->
+    private val binding get() = _binding
+
+    /*private val callback = OnMapReadyCallback { googleMap ->
         /**
          * Manipulates the map once available.
          * This callback is triggered when the map is ready to be used.
@@ -40,22 +44,46 @@ class MapsFragment : Fragment() {
         googleMap.addMarker(MarkerOptions().position(barSelected).title("Marker on selected bar"))
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(barSelected))
         println("maplog : map callback - lat = "+viewModel.mapLat+" lng = "+viewModel.mapLng)
-    }
+    }*/
 
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        //MapsFragment.getMapAsync(this)
-        return inflater.inflate(R.layout.fragment_maps, container, false)
+    ): View {
+        //return inflater.inflate(R.layout.fragment_maps, container, false)
+        _binding = FragmentMapsBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+
+        SetMap()
+
+        return root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    /*override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        mapFragment?.getMapAsync(callback)
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
         println("maplog : map loaded")
+    }*/
+
+    private fun SetMap() {
+        if (mMap == null) {
+            val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+            mapFragment.getMapAsync(this)
+
+            println("maplog : map loaded")
+        }
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
+
+        val barSelected = LatLng(viewModel.mapLat, viewModel.mapLng)
+        mMap!!.addMarker(MarkerOptions().position(barSelected).title("Marker on selected bar"))
+        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(barSelected))
+        //mMap!!.moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(barSelected, 15f))
+        println("maplog : map callback - lat = "+viewModel.mapLat+" lng = "+viewModel.mapLng)
     }
 }

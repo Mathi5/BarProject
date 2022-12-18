@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         addFragment(R.id.frameLayout, MapsFragment())
         replaceFragment(R.id.frameLayout, MapsFragment())
         removeFragment(DetailFragement())
-        println("maplog : map displayed")
+        println("maplog : map fragment displayed")
     }
 
     fun FragmentManager.doTransaction(func: FragmentTransaction.() ->

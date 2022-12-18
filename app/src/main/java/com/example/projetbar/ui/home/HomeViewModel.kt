@@ -95,7 +95,7 @@ class HomeViewModel : ViewModel() {
 
         val str = client.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json") {
             url {
-                parameters.append("radius", "1500")
+                parameters.append("radius", "10000")
                 parameters.append("location", "${lati},${longi}")
                 parameters.append("type", "bar")
                 parameters.append("key", "AIzaSyB6t0WdE2wByUMVO9xP2vCIqiYEKBL0HGo")
