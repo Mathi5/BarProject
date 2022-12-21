@@ -31,7 +31,8 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
     private lateinit var itemAdapter : ItemAdapter.ItemAdapter
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var mainActivity: MainActivity
-    var inDetail: Boolean = false
+    private var isAlreadyCreate = false;
+
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -54,7 +55,6 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
         }
 
         val mListBars = mutableListOf<Bar>()
-        //binding.listeBar.adapter.
         itemAdapter = ItemAdapter.ItemAdapter(mListBars,this)
         binding.rvItem.adapter = itemAdapter
 
@@ -62,6 +62,7 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         getLastKnownLocation()
+        println("abcd : OnCreteViewHome")
 
 
 
@@ -92,15 +93,9 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
         println("abcd : requestGoogle")
 
         lifecycleScope.launch {
-            //val url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat}%2C${long}&radius=1500&type=bar&key=AIzaSyB6t0WdE2wByUMVO9xP2vCIqiYEKBL0HGo"
-
-
-            //var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522%2C151.1957362&radius=1500&type=bar&key=AIzaSyB6t0WdE2wByUMVO9xP2vCIqiYEKBL0HGo"
-            //println(url)
             viewModel.getData(lat, long)
             itemAdapter.datalist = viewModel.listBars
             itemAdapter.notifyDataSetChanged()
-            //println("url récupéré, latitude: ${lat}, longitude: ${long}")
         }
     }
 
@@ -146,8 +141,8 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
     }
 
     override fun onbarclicked(bar: Bar) {
-        if (!inDetail){
-            inDetail = true
+        if (!viewModel.inDetail){
+            viewModel.inDetail = true
             Log.wtf("wtf", "bar name: " + bar.name)
             viewModel.getSelectedBar(bar)
             mainActivity.goBar()

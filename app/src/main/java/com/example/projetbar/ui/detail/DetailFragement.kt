@@ -1,5 +1,6 @@
 package com.example.projetbar.ui.detail
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import com.example.projetbar.MainActivity
 import com.example.projetbar.R
@@ -29,7 +31,6 @@ class DetailFragement : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val detailViewModel =
             ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
-        Log.wtf("wtf", "selectedbar " + detailViewModel.selectedBar)
         _binding = FragmentDetailFragementBinding.inflate(inflater, container, false)
 
         val root: View = binding.root
@@ -55,6 +56,12 @@ class DetailFragement : Fragment() {
         }
 
 
+        val buttonBack : Button = binding.BackDetailButton
+
+        buttonBack.setOnClickListener {
+            mainActivity.goBackHome()
+        }
+
         detailViewModel.initTextView()
         return binding.root
     }
@@ -64,12 +71,19 @@ class DetailFragement : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        //mainActivity = MainActivity()
         // TODO: Use the ViewModel
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        this.mainActivity = context as MainActivity
+
     }
 
 }
