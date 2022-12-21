@@ -47,22 +47,27 @@ class DetailFragement : Fragment() {
 
 
         detailViewModel.detailBarName.observe(viewLifecycleOwner) {
-            binding.name.text = it
+            binding.name.text = "Nom : "+it
         }
 
         val textOpen: TextView = binding.open
         detailViewModel.detailBarOpen.observe(viewLifecycleOwner) {
-            textOpen.text = it
+            if (it != null ) {
+                textOpen.text = "Horaires inconnue"
+            } else {
+                textOpen.text = it
+            }
         }
 
         val textRating: TextView = binding.ratings
         detailViewModel.detailBarRating.observe(viewLifecycleOwner) {
-            textRating.text = it
+            textRating.text = "note : "+it
         }
 
         val textVicinity: TextView = binding.vicinity
         detailViewModel.detailBarVicinity.observe(viewLifecycleOwner) {
-            textVicinity.text = it
+            textVicinity.text = "adresse : "+it
+
         }
 
 

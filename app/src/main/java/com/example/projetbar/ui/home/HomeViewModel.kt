@@ -45,21 +45,17 @@ class HomeViewModel : ViewModel() {
 
 
         _detailBarOpen = MutableLiveData<String>().apply {
-            if(bar.openingHours != null) {
-                value = "ouvert : "+bar.openingHours.toString()
-            } else {
-                value = "ouvert : info indisponible"
-            }
+            value = bar.openingHours.toString()
         }
         detailBarOpen = _detailBarOpen
 
         _detailBarRating = MutableLiveData<String>().apply {
-            value = "note : "+bar.rating.toString()
+            value = bar.rating.toString()
         }
         detailBarRating = _detailBarRating
 
         _detailBarVicinity = MutableLiveData<String>().apply {
-            value = "adresse : "+bar.vicinity
+            value = bar.vicinity
         }
         detailBarVicinity = _detailBarVicinity
 
@@ -82,6 +78,7 @@ class HomeViewModel : ViewModel() {
             this._detailBarOpen.postValue(selectedBar?.openingHours.toString())
             this._detailBarRating.postValue(selectedBar?.rating.toString())
             this._detailBarVicinity.postValue(selectedBar?.vicinity)
+
         }
 
     }
@@ -95,7 +92,7 @@ class HomeViewModel : ViewModel() {
 
         val str = client.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json") {
             url {
-                parameters.append("radius", "10000")
+                parameters.append("radius", "3000")
                 parameters.append("location", "${lati},${longi}")
                 parameters.append("type", "bar")
                 parameters.append("key", "AIzaSyB6t0WdE2wByUMVO9xP2vCIqiYEKBL0HGo")

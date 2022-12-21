@@ -67,7 +67,7 @@ class MapsFragment : Fragment() {
         mapFragment.getMapAsync { googleMap ->
             val barSelected = LatLng(viewModel.mapLat, viewModel.mapLng)
             googleMap.addMarker(MarkerOptions().position(barSelected).title(viewModel.selectedBar?.name))
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(barSelected, 10f))
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(barSelected, 15f))
             println("maplog : map callback - lat = "+viewModel.mapLat+" lng = "+viewModel.mapLng)
         }
         //println("maplog : map loaded")
