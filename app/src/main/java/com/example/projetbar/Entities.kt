@@ -15,7 +15,9 @@ class Bar(result: com.example.projetbar.Result) {
 
     init {
         name = result.name
-        openingHours = result.openingHours.openNow
+        if (result.openingHours != null) {
+            openingHours = result.openingHours.openNow
+        }
         rating  = result.rating
         vicinity = result.vicinity
         lat = result.geometry.location.lat
