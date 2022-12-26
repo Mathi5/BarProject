@@ -21,6 +21,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: HomeViewModel
+
+    //lateinit var currentFragment: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -28,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //currentFragment = "home"
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         // Passing each menu ID as a set of Ids because each
@@ -45,6 +49,8 @@ class MainActivity : AppCompatActivity() {
     fun goBar(){
         Log.wtf("wtf", "selected bar " + viewModel.selectedBar?.name )
 
+        //currentFragment = "detail"
+
         //binding.navView.removeAllViews()
         //removeFragment(HomeFragment())
         addFragment(R.id.nav_host_fragment_activity_main, DetailFragement())
@@ -52,6 +58,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun goMap(){
+
+        //currentFragment = "map"
 
         var fr = supportFragmentManager
         binding.navView.removeAllViews()
@@ -85,12 +93,29 @@ class MainActivity : AppCompatActivity() {
         removeFragment(DetailFragement())
         DetailFragement().onDestroyView()
         //addFragment(R.id.nav_host_fragment_activity_main, HomeFragment())
-        replaceFragment(R.id.nav_host_fragment_activity_main)
+        replaceFragment(R.id.nav_host_fragment_activity_main, HomeFragment())
         viewModel.inDetail = false
     }
 
+    /*fun goBackDetail () {
+        //binding.navView.removeAllViews()
+
+        removeFragment(MapsFragment())
+        MapsFragment().onDestroyView()
+        //addFragment(R.id.nav_host_fragment_activity_main, HomeFragment())
+        replaceFragment(R.id.nav_host_fragment_activity_main, DetailFragement())
+        viewModel.inDetail = false
+    }*/
+
     override fun onBackPressed() {
+        /*if (currentFragment == "detail") {
+            goBackHome()
+        } else if (currentFragment == "map") {
+            goBackDetail()
+        }*/
+
         goBackHome()
+
     }
 
 

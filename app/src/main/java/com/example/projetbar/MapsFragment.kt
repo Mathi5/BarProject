@@ -1,5 +1,6 @@
 package com.example.projetbar
 
+import android.content.Context
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
@@ -25,7 +26,7 @@ class MapsFragment : Fragment() {
 
     private lateinit var _binding: FragmentMapsBinding
     private val viewModel: HomeViewModel by activityViewModels()
-    //private var mMap: GoogleMap ? = null
+    //private lateinit var mainActivity: MainActivity
 
     private val binding get() = _binding
 
@@ -73,22 +74,15 @@ class MapsFragment : Fragment() {
         //println("maplog : map loaded")
     }
 
-    /*private fun SetMap() {
-        if (mMap == null) {
-            val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-            mapFragment.getMapAsync(this)
+    /*override fun onAttach(context: Context) {
+        super.onAttach(context)
+        this.mainActivity = context as MainActivity
 
-            println("maplog : map loaded")
-        }
-    }*/
+    }
 
-    /*override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
-
-        val barSelected = LatLng(viewModel.mapLat, viewModel.mapLng)
-        mMap!!.addMarker(MarkerOptions().position(barSelected).title("Marker on selected bar"))
-        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(barSelected))
-        //mMap!!.moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(barSelected, 15f))
-        println("maplog : map callback - lat = "+viewModel.mapLat+" lng = "+viewModel.mapLng)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        //_binding = null
+        this.mainActivity.currentFragment = "detail"
     }*/
 }

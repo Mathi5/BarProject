@@ -1,5 +1,6 @@
 package com.example.projetbar.ui.detail
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
@@ -35,6 +37,7 @@ class DetailFragement : Fragment() {
     private lateinit var btnMap: ImageView
 
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val detailViewModel =
@@ -45,7 +48,7 @@ class DetailFragement : Fragment() {
 
 
         detailViewModel.detailBarName.observe(viewLifecycleOwner) {
-            binding.name.text = "Nom : "+it
+            binding.name.text = "Nom : $it"
         }
 
         val textOpen: TextView = binding.open
@@ -59,12 +62,12 @@ class DetailFragement : Fragment() {
 
         val textRating: TextView = binding.ratings
         detailViewModel.detailBarRating.observe(viewLifecycleOwner) {
-            textRating.text = "note : "+it
+            textRating.text = "note : $it"
         }
 
         val textVicinity: TextView = binding.vicinity
         detailViewModel.detailBarVicinity.observe(viewLifecycleOwner) {
-            textVicinity.text = "adresse : "+it
+            textVicinity.text = "adresse : $it"
 
         }
 
@@ -81,6 +84,7 @@ class DetailFragement : Fragment() {
 
 
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
@@ -107,12 +111,8 @@ class DetailFragement : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        //this.mainActivity.currentFragment = "home"
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        this.mainActivity = context as MainActivity
-
-    }
 
 }
