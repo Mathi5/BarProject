@@ -34,9 +34,12 @@ class HomeViewModel : ViewModel() {
     var detailBarRating:LiveData<String> = _detailBarRating
     var _detailBarVicinity = MutableLiveData<String>()
     var detailBarVicinity:LiveData<String> = _detailBarVicinity
+    var inDetail: Boolean = false
 
     fun getSelectedBar(bar: Bar) {
         selectedBar = bar
+
+
 
         _detailBarName = MutableLiveData<String>().apply {
             value = bar.name
