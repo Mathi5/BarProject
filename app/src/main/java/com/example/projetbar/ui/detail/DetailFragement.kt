@@ -35,6 +35,7 @@ class DetailFragement : Fragment() {
     private lateinit var mainActivity: MainActivity
     private val binding get() = _binding!!
     private lateinit var btnMap: ImageView
+    private lateinit var photoRef: String
 
 
     @SuppressLint("SetTextI18n")
@@ -53,10 +54,12 @@ class DetailFragement : Fragment() {
 
         val textOpen: TextView = binding.open
         detailViewModel.detailBarOpen.observe(viewLifecycleOwner) {
-            if (it != null ) {
-                textOpen.text = "Horaires inconnue"
+            if (it == "true" ) {
+                textOpen.text = "Ouvert"
+            } else if (it == "false"){
+                textOpen.text = "Fermé"
             } else {
-                textOpen.text = it
+                textOpen.text = "Horaires inconnue"
             }
         }
 
@@ -71,6 +74,9 @@ class DetailFragement : Fragment() {
 
         }
 
+        detailViewModel.detailBarPhoto.observe(viewLifecycleOwner) {
+            photoRef = it
+        }
 
         val buttonBack : Button = binding.BackDetailButton
 
@@ -88,9 +94,7 @@ class DetailFragement : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        //mainActivity = MainActivity()
         // TODO: Use the ViewModel
-
         // Compléter l'appel de la map au clic
         println("maplog : activity created")
         btnMap = view?.findViewById(R.id.imageMap) as ImageView
@@ -99,7 +103,7 @@ class DetailFragement : Fragment() {
             mainActivity.goMap()
         }
 
-
+        //viewModel.getPhoto(photoRef)
     }
 
     override fun onAttach(context: Context) {

@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projetbar.Bar
+import com.example.projetbar.Location
 import com.example.projetbar.databinding.ItemListeBinding
 
 
@@ -12,11 +13,19 @@ class ItemAdapter {
 
 
         class ItemHolder(val binding: ItemListeBinding , val barCLickedListener: OnBarCLickedListener ) : RecyclerView.ViewHolder(binding.root) {
+            private lateinit var viewModel: HomeViewModel
+
             fun bind(get: Bar) {
                 binding.tvItem.text = get.name
                 binding.tvItem.setOnClickListener {
                     barCLickedListener.onbarclicked(get)
                 }
+
+                /*val crntLocation = Location(viewModel.currentLat, viewModel.currentLng)
+                val newLocation = Location(get.lat, get.lng)
+                val distance: Float = crntLocation.distanceTo(newLocation) / 1000 // in km
+                binding.tvDistance.text = distance.toString()*/
+
             }
         }
 

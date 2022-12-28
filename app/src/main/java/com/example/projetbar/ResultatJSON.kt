@@ -33,8 +33,10 @@ data class Result (
 
     val name: String,
 
-    @Json(name = "opening_hours")
-    val openingHours: OpeningHours,
+    //@Json(name = "opening_hours")
+    //val openingHours: OpeningHours,
+
+    val opening_hours: OpeningHours,
 
     val photos: List<Photo>,
 
@@ -81,11 +83,13 @@ data class OpeningHours (
 data class Photo (
     val height: Long,
 
-    @Json(name = "html_attributions")
-    val htmlAttributions: List<String>,
+    //@Json(name = "html_attributions")
+    //val htmlAttributions: List<String>,
+    val html_attributions: List<String>,
 
-    @Json(name = "photo_reference")
-    val photoReference: String,
+    //@Json(name = "photo_reference")
+    //val photoReference: String,
+    val photo_reference: String,
 
     val width: Long
 )

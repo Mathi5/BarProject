@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.projetbar.Bar
+import com.example.projetbar.BuildConfig.GOOGLE_MAPS_API_KEY
 import com.example.projetbar.Welcome1
 import com.example.projetbar.databinding.ActivityMainBinding
 import com.google.gson.Gson
@@ -26,6 +27,9 @@ class HomeViewModel : ViewModel() {
     var selectedBar: Bar? = null
     var mapLat: Double = 0.0
     var mapLng: Double = 0.0
+    //var currentLat: Double = 0.0
+    //var currentLng: Double = 0.0
+    //var distance: Double = 0.0
     var _detailBarName= MutableLiveData<String>()
     var detailBarName:LiveData<String> =  _detailBarName
     var _detailBarOpen = MutableLiveData<String>()
@@ -34,12 +38,13 @@ class HomeViewModel : ViewModel() {
     var detailBarRating:LiveData<String> = _detailBarRating
     var _detailBarVicinity = MutableLiveData<String>()
     var detailBarVicinity:LiveData<String> = _detailBarVicinity
+    var _detailBarPhoto = MutableLiveData<String>()
+    var detailBarPhoto:LiveData<String> = _detailBarPhoto
+
     var inDetail: Boolean = false
 
     fun getSelectedBar(bar: Bar) {
         selectedBar = bar
-
-
 
         _detailBarName = MutableLiveData<String>().apply {
             value = bar.name
@@ -61,6 +66,11 @@ class HomeViewModel : ViewModel() {
             value = bar.vicinity
         }
         detailBarVicinity = _detailBarVicinity
+
+        _detailBarPhoto = MutableLiveData<String>().apply {
+            value = bar.photo
+        }
+        detailBarPhoto = _detailBarPhoto
 
         getPosition(bar)
 
@@ -98,9 +108,11 @@ class HomeViewModel : ViewModel() {
                 parameters.append("radius", "3000")
                 parameters.append("location", "${lati},${longi}")
                 parameters.append("type", "bar")
-                parameters.append("key", "AIzaSyB6t0WdE2wByUMVO9xP2vCIqiYEKBL0HGo")
+                parameters.append("key", GOOGLE_MAPS_API_KEY)
             }
         }
+
+        println("requête : "+str)
 
         val gson = Gson()
         val testRes = gson.fromJson(str.bodyAsText(), Welcome1::class.java)
@@ -122,6 +134,24 @@ class HomeViewModel : ViewModel() {
         mapLng = bar.lng
         mapLat = bar.lat
         println("maplog : getPosition - mapLat = $mapLat , mapLng = $mapLng")
+    }
+
+    suspend fun getPhoto(ref: String){
+        val client = HttpClient(CIO) {
+            install(ContentNegotiation){
+                json()
+            }
+        }
+
+        val str = client.get("https://maps.googleapis.com/maps/api/place/photo") {
+            url {
+                parameters.append("maxwidth", "400")
+                parameters.append("photo_reference", ref)
+                parameters.append("key", GOOGLE_MAPS_API_KEY)
+            }
+        }
+        println(str)
+
     }
 
 }
