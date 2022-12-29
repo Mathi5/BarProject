@@ -11,6 +11,7 @@ import com.example.projetbar.Bar
 import com.example.projetbar.BuildConfig.GOOGLE_MAPS_API_KEY
 import com.example.projetbar.Welcome1
 import com.example.projetbar.databinding.ActivityMainBinding
+import com.example.projetbar.ui.detail.DetailFragement
 import com.google.gson.Gson
 import io.ktor.client.*
 import io.ktor.client.call.*
@@ -136,7 +137,7 @@ class HomeViewModel : ViewModel() {
         println("maplog : getPosition - mapLat = $mapLat , mapLng = $mapLng")
     }
 
-    suspend fun getPhoto(ref: String){
+    suspend fun getPhoto(ref: String): String {
         val client = HttpClient(CIO) {
             install(ContentNegotiation){
                 json()
@@ -150,7 +151,13 @@ class HomeViewModel : ViewModel() {
                 parameters.append("key", GOOGLE_MAPS_API_KEY)
             }
         }
-        println(str)
+        println("xyz: "+str)
+
+        val url = str.bodyAsText(Charsets.UTF_8)
+
+        println("xyz: "+url)
+
+        return url
 
     }
 

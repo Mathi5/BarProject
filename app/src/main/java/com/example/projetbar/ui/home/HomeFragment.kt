@@ -126,8 +126,8 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
                     // get latitude , longitude and other info from this
                     val lat = location.latitude.toFloat().toString()
                     val long = location.longitude.toFloat().toString()
-                    viewModel.currentLat = location.latitude
-                    viewModel.currentLng = location.longitude
+                    //viewModel.currentLat = location.latitude
+                    //viewModel.currentLng = location.longitude
 
                     requestGoogle(lat, long)
                 } else {

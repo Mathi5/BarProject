@@ -2,6 +2,7 @@ package com.example.projetbar.ui.detail
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -13,7 +14,10 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.projetbar.Bar
 import com.example.projetbar.MainActivity
 import com.example.projetbar.R
@@ -22,6 +26,7 @@ import com.example.projetbar.databinding.FragmentHomeBinding
 import com.example.projetbar.databinding.ItemListeBinding
 import com.example.projetbar.ui.home.HomeViewModel
 import com.example.projetbar.ui.home.ItemAdapter
+import kotlinx.coroutines.launch
 
 class DetailFragement : Fragment() {
 
@@ -36,6 +41,8 @@ class DetailFragement : Fragment() {
     private val binding get() = _binding!!
     private lateinit var btnMap: ImageView
     private lateinit var photoRef: String
+    private lateinit var photoString: String
+    private lateinit var photoUri: Uri
 
 
     @SuppressLint("SetTextI18n")
@@ -76,6 +83,24 @@ class DetailFragement : Fragment() {
 
         detailViewModel.detailBarPhoto.observe(viewLifecycleOwner) {
             photoRef = it
+            println("xyz: init photoref")
+            lifecycleScope.launch {
+                photoString = viewModel.getPhoto(photoRef)
+                photoUri = Uri.parse(photoString)
+                val photoBar: ImageView = binding.imageBar
+                //val photoUri: Uri = Uri.parse(photoRef)
+                println("xyz: url "+photoUri)
+                //photoBar.setImageURI(photoUri)
+
+                Glide.with(mainActivity)
+                    .load(photoUri)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.drawable.ic_no_photo)
+                    .error(R.drawable.ic_no_photo)
+                    .override(400, 400)
+                    .centerCrop()
+                    .into(photoBar)
+            }
         }
 
         val buttonBack : Button = binding.BackDetailButton
@@ -102,6 +127,7 @@ class DetailFragement : Fragment() {
             println("maplog : button clicked")
             mainActivity.goMap()
         }
+
 
         //viewModel.getPhoto(photoRef)
     }
