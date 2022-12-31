@@ -3,6 +3,7 @@ package com.example.projetbar.ui.home
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.projetbar.Bar
 import com.example.projetbar.MainActivity
 import com.example.projetbar.databinding.FragmentHomeBinding
+import com.example.projetbar.ui.detail.DetailFragement
 import kotlinx.coroutines.launch
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -63,6 +65,7 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         getLastKnownLocation()
         println("abcd : OnCreteViewHome")
+
 
         return root
     }
@@ -126,8 +129,7 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
                     // get latitude , longitude and other info from this
                     val lat = location.latitude.toFloat().toString()
                     val long = location.longitude.toFloat().toString()
-                    //viewModel.currentLat = location.latitude
-                    //viewModel.currentLng = location.longitude
+                    viewModel.currentLoc = location
 
                     requestGoogle(lat, long)
                 } else {

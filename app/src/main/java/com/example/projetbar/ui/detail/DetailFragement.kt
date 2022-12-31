@@ -5,7 +5,6 @@ import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,20 +12,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.example.projetbar.Bar
 import com.example.projetbar.MainActivity
 import com.example.projetbar.R
 import com.example.projetbar.databinding.FragmentDetailFragementBinding
-import com.example.projetbar.databinding.FragmentHomeBinding
-import com.example.projetbar.databinding.ItemListeBinding
 import com.example.projetbar.ui.home.HomeViewModel
-import com.example.projetbar.ui.home.ItemAdapter
-import kotlinx.coroutines.launch
 
 class DetailFragement : Fragment() {
 
@@ -84,7 +73,7 @@ class DetailFragement : Fragment() {
         detailViewModel.detailBarPhoto.observe(viewLifecycleOwner) {
             photoRef = it
             println("xyz: init photoref")
-            lifecycleScope.launch {
+            /*lifecycleScope.launch {
                 photoString = viewModel.getPhoto(photoRef)
                 photoUri = Uri.parse(photoString)
                 val photoBar: ImageView = binding.imageBar
@@ -100,7 +89,7 @@ class DetailFragement : Fragment() {
                     .override(400, 400)
                     .centerCrop()
                     .into(photoBar)
-            }
+            }*/
         }
 
         val buttonBack : Button = binding.BackDetailButton

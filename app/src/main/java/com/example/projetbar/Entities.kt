@@ -1,6 +1,8 @@
 package com.example.projetbar
 
-class Bar(result: Result) {
+import android.location.Location
+
+class Bar(result: Result, crntLocation: Location) {
     var name: String = ""
     var openingHours: Boolean? = null
     var rating: Double = 0.0
@@ -8,7 +10,7 @@ class Bar(result: Result) {
     var lat: Double = 0.0
     var lng: Double = 0.0
     var photo: String = ""
-
+    var distance: Double = 0.0
 
     init {
 
@@ -20,6 +22,21 @@ class Bar(result: Result) {
         lng = result.geometry.location.lng
         photo = result.photos[0].photo_reference
         println("debug : "+photo)
+
+        //Récupérer la distance du bar
+
+        val currentLocation = Location("currentLocation")
+        currentLocation.setLatitude(crntLocation.latitude)
+        currentLocation.setLongitude(crntLocation.longitude)
+
+        val newLocation = Location("newLocation")
+        newLocation.latitude = lat
+        newLocation.longitude = lng
+
+        val distTmp = currentLocation.distanceTo(newLocation) / 1000 // in km
+        distance = Math.round(distTmp * 10.0) / 10.0
+
+        //distance = currentLocation.distanceTo(newLocation) / 1000 // in km
     }
 
     override fun toString(): String {

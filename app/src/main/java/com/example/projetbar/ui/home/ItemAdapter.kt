@@ -1,31 +1,28 @@
 package com.example.projetbar.ui.home
 
+import android.annotation.SuppressLint
+import android.location.Location
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projetbar.Bar
-import com.example.projetbar.Location
 import com.example.projetbar.databinding.ItemListeBinding
 
 
 class ItemAdapter {
     class ItemAdapter(var datalist:List<Bar>, val barCLickInterface:OnBarCLickedListener): RecyclerView.Adapter<ItemAdapter.ItemHolder>() {
 
+        class ItemHolder(val binding: ItemListeBinding , val barCLickedListener: OnBarCLickedListener) : RecyclerView.ViewHolder(binding.root) {
 
-        class ItemHolder(val binding: ItemListeBinding , val barCLickedListener: OnBarCLickedListener ) : RecyclerView.ViewHolder(binding.root) {
-            private lateinit var viewModel: HomeViewModel
-
+            @SuppressLint("SetTextI18n")
             fun bind(get: Bar) {
                 binding.tvItem.text = get.name
                 binding.tvItem.setOnClickListener {
                     barCLickedListener.onbarclicked(get)
                 }
-
-                /*val crntLocation = Location(viewModel.currentLat, viewModel.currentLng)
-                val newLocation = Location(get.lat, get.lng)
-                val distance: Float = crntLocation.distanceTo(newLocation) / 1000 // in km
-                binding.tvDistance.text = distance.toString()*/
-
+                binding.tvDistance.text = get.distance.toString()+" Km"
+                println("distance : "+binding.tvDistance.text)
             }
         }
 

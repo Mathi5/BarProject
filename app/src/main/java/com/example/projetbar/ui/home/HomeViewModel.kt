@@ -2,6 +2,7 @@ package com.example.projetbar.ui.home
 
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
+import android.location.Location
 import android.util.Log
 import android.widget.ImageView
 import androidx.lifecycle.LiveData
@@ -28,9 +29,9 @@ class HomeViewModel : ViewModel() {
     var selectedBar: Bar? = null
     var mapLat: Double = 0.0
     var mapLng: Double = 0.0
-    //var currentLat: Double = 0.0
-    //var currentLng: Double = 0.0
-    //var distance: Double = 0.0
+
+    lateinit var currentLoc: Location
+
     var _detailBarName= MutableLiveData<String>()
     var detailBarName:LiveData<String> =  _detailBarName
     var _detailBarOpen = MutableLiveData<String>()
@@ -121,7 +122,7 @@ class HomeViewModel : ViewModel() {
         listBars.clear()
 
         for (result in testRes.results.iterator()) {
-            listBars.add(Bar(result))
+            listBars.add(Bar(result, currentLoc))
         }
         _text.apply {
             value = "Bars proches : " + listBars.size
@@ -137,7 +138,7 @@ class HomeViewModel : ViewModel() {
         println("maplog : getPosition - mapLat = $mapLat , mapLng = $mapLng")
     }
 
-    suspend fun getPhoto(ref: String): String {
+    /*suspend fun getPhoto(ref: String): String {
         val client = HttpClient(CIO) {
             install(ContentNegotiation){
                 json()
@@ -159,6 +160,6 @@ class HomeViewModel : ViewModel() {
 
         return url
 
-    }
+    }*/
 
 }
