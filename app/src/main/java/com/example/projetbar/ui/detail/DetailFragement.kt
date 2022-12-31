@@ -12,10 +12,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.projetbar.MainActivity
 import com.example.projetbar.R
 import com.example.projetbar.databinding.FragmentDetailFragementBinding
 import com.example.projetbar.ui.home.HomeViewModel
+import kotlinx.coroutines.launch
 
 class DetailFragement : Fragment() {
 

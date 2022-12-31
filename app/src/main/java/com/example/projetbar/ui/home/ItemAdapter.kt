@@ -22,7 +22,6 @@ class ItemAdapter {
                     barCLickedListener.onbarclicked(get)
                 }
                 binding.tvDistance.text = get.distance.toString()+" Km"
-                println("distance : "+binding.tvDistance.text)
             }
         }
 

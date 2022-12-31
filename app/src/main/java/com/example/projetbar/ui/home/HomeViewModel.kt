@@ -152,11 +152,13 @@ class HomeViewModel : ViewModel() {
                 parameters.append("key", GOOGLE_MAPS_API_KEY)
             }
         }
-        println("xyz: "+str)
+        println("xyz: résultat requête - "+str)
 
-        val url = str.bodyAsText(Charsets.UTF_8)
+        val url = str.bodyAsText()
 
-        println("xyz: "+url)
+        //val url: String = str.body()
+
+        println("xyz: body - "+url)
 
         return url
 
