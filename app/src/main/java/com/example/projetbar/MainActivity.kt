@@ -52,7 +52,9 @@ class MainActivity : AppCompatActivity() {
         currentFragment = "detail"
 
         //binding.navView.removeAllViews()
-        //removeFragment(HomeFragment())
+        removeFragment(HomeFragment())
+        HomeFragment().onDestroyView()
+
         addFragment(R.id.nav_host_fragment_activity_main, DetailFragement())
         replaceFragment(R.id.nav_host_fragment_activity_main, DetailFragement())
     }
@@ -92,6 +94,7 @@ class MainActivity : AppCompatActivity() {
 
         removeFragment(DetailFragement())
         DetailFragement().onDestroyView()
+
         //addFragment(R.id.nav_host_fragment_activity_main, HomeFragment())
         replaceFragment(R.id.nav_host_fragment_activity_main, HomeFragment())
         viewModel.inDetail = false

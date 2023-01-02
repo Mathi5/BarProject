@@ -77,9 +77,13 @@ class DetailFragement : Fragment() {
         detailViewModel.detailBarPhoto.observe(viewLifecycleOwner) {
             photoRef = it
             println("xyz: init photoref")
-            /*lifecycleScope.launch {
-                photoString = viewModel.getPhoto(photoRef)
-                photoUri = Uri.parse(photoString)
+            lifecycleScope.launch {
+
+                //photoString = viewModel.getPhoto(photoRef)
+                //photoUri = Uri.parse(photoString)
+
+                photoUri = Uri.parse("")
+
                 val photoBar: ImageView = binding.imageBar
                 //val photoUri: Uri = Uri.parse(photoRef)
                 println("xyz: url "+photoUri)
@@ -93,7 +97,7 @@ class DetailFragement : Fragment() {
                     .override(400, 400)
                     .centerCrop()
                     .into(photoBar)
-            }*/
+            }
         }
 
         val buttonBack : Button = binding.BackDetailButton

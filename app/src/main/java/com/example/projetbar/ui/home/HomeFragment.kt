@@ -64,8 +64,8 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         getLastKnownLocation()
-        println("abcd : OnCreteViewHome")
 
+        println("backbutton: onCreateView")
 
         return root
     }
@@ -79,6 +79,7 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        println("backbutton: onDestroyView")
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
