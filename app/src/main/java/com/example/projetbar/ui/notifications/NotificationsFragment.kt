@@ -1,20 +1,26 @@
 package com.example.projetbar.ui.notifications
 
 import android.content.Context.SENSOR_SERVICE
+import android.content.res.Configuration
+import android.graphics.Color
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.projetbar.MainActivity
+import com.example.projetbar.R
 import com.example.projetbar.databinding.FragmentNotificationsBinding
+import nl.adaptivity.xmlutil.serialization.structure.PolymorphicMode.*
 
 
 class NotificationsFragment : Fragment() {
@@ -66,7 +72,7 @@ class NotificationsFragment : Fragment() {
     private val gyroscopeSensorListener: SensorEventListener = object : SensorEventListener {
         override fun onSensorChanged(sensorEvent: SensorEvent) {
             // More code goes here
-            if(sensorEvent.values[2] > 0.5f || sensorEvent.values[2] < -0.5f) {
+            if(sensorEvent.values[2] > 1f || sensorEvent.values[2] < -1f) {
                  image_alcootest.rotation = 180f
                 textView.text = "Perdu ! T'as trop bu"
             }
@@ -87,5 +93,24 @@ class NotificationsFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         sensorManager.unregisterListener(gyroscopeSensorListener)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val nightModeFlags =
+            requireView().context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+
+        when (nightModeFlags) {
+            Configuration.UI_MODE_NIGHT_YES -> {
+                getContext()?.getResources()
+                    ?.let { image_alcootest.setColorFilter(it.getColor(R.color.yellow)) }
+                //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+            Configuration.UI_MODE_NIGHT_NO -> {
+                getContext()?.getResources()
+                    ?.let { image_alcootest.setColorFilter(it.getColor(R.color.black)) }
+                //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }
+        }
     }
 }

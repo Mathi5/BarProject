@@ -15,7 +15,9 @@ class Bar(result: Result, crntLocation: Location) {
     init {
 
         name = result.name
-        openingHours = result.opening_hours.openNow
+        if (result.opening_hours != null) {
+            openingHours = result.opening_hours.openNow
+        }
         rating  = result.rating
         vicinity = result.vicinity
         lat = result.geometry.location.lat
