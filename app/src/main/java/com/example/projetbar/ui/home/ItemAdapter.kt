@@ -41,16 +41,6 @@ class ItemAdapter {
             return datalist.size
         }
 
-        /*fun clear() {
-            val size = itemCount
-            var i = 0
-            if (size > 0) {
-                while (i < size) {
-                    ItemListeBinding.remove(0)
-                    i++
-                }
-            }
-        }*/
     }
 
     interface OnBarCLickedListener{
