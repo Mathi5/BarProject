@@ -2,6 +2,7 @@ package com.example.projetbar.ui.home
 
 import android.annotation.SuppressLint
 import android.location.Location
+import android.system.Os.remove
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
@@ -39,6 +40,17 @@ class ItemAdapter {
         override fun getItemCount(): Int {
             return datalist.size
         }
+
+        /*fun clear() {
+            val size = itemCount
+            var i = 0
+            if (size > 0) {
+                while (i < size) {
+                    ItemListeBinding.remove(0)
+                    i++
+                }
+            }
+        }*/
     }
 
     interface OnBarCLickedListener{
