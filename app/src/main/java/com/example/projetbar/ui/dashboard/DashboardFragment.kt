@@ -64,7 +64,7 @@ class DashboardFragment : Fragment(), GoogleMap.OnMarkerClickListener {
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                 .title("Vous")
             )
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 15f))
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 12f))
         }
     }
 
@@ -73,6 +73,7 @@ class DashboardFragment : Fragment(), GoogleMap.OnMarkerClickListener {
             val selectedBar = marker.title?.let { viewModel.getBarByName(it) }
             if (!viewModel.inDetail){
                 viewModel.inDetail = true
+                viewModel.clicOrigin = "map"
                 if (selectedBar != null) {
                     viewModel.getSelectedBar(selectedBar)
                 }

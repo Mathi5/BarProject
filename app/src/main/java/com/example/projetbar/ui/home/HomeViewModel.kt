@@ -45,7 +45,16 @@ class HomeViewModel : ViewModel() {
     var _detailBarPhoto = MutableLiveData<String>()
     var detailBarPhoto:LiveData<String> = _detailBarPhoto
 
+    private val _textAlcootest = MutableLiveData<String>().apply {
+        value = "Tends ton bras, lève une jambe et tiens ton portable le plus droit possible"
+    }
+    val textAlcootest: LiveData<String> = _textAlcootest
+
     var inDetail: Boolean = false
+
+    var inMap: Boolean = false
+
+    var clicOrigin: String = ""
 
     var listBars = mutableListOf<Bar>()
 

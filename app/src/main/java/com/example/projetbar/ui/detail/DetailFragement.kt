@@ -45,8 +45,6 @@ class DetailFragement : Fragment() {
             ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
         _binding = FragmentDetailFragementBinding.inflate(inflater, container, false)
 
-        val root: View = binding.root
-
 
         detailViewModel.detailBarName.observe(viewLifecycleOwner) {
             binding.name.text = "Nom : $it"
@@ -100,13 +98,14 @@ class DetailFragement : Fragment() {
             }
         }
 
-        val buttonBack : Button = binding.BackDetailButton
+        /*val buttonBack : Button = binding.BackDetailButton
 
         buttonBack.setOnClickListener {
             mainActivity.goBackHome()
-        }
+        }*/
 
         detailViewModel.initTextView()
+
         return binding.root
     }
 
@@ -117,8 +116,10 @@ class DetailFragement : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         // TODO: Use the ViewModel
+
         // Compléter l'appel de la map au clic
         println("maplog : activity created")
+
         btnMap = view?.findViewById(R.id.imageMap) as ImageView
         btnMap.setOnClickListener {
             println("maplog : button clicked")
@@ -141,5 +142,9 @@ class DetailFragement : Fragment() {
         //this.mainActivity.currentFragment = "home"
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        println("debuggage: fragment detail détruit")
+    }
 
 }

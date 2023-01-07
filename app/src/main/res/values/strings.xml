@@ -3,4 +3,7 @@
     <string name="title_home">Bars</string>
     <string name="title_dashboard">Carte</string>
     <string name="title_notifications">Alcootest</string>
+    <string name="retour">Retour</string>
+    <string name="icone_maps">icone maps</string>
+    <string name="image_du_bar">image du bar</string>
 </resources>

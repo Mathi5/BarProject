@@ -1,4 +1,4 @@
-package com.example.projetbar
+package com.example.projetbar.ui.map
 
 import android.content.Context
 import androidx.fragment.app.Fragment
@@ -7,16 +7,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
-import com.example.projetbar.databinding.ActivityMainBinding.inflate
-import com.example.projetbar.databinding.FragmentDashboardBinding.inflate
-import com.example.projetbar.databinding.FragmentDetailFragementBinding
+import com.example.projetbar.MainActivity
+import com.example.projetbar.R
 import com.example.projetbar.databinding.FragmentMapsBinding
+import com.example.projetbar.ui.detail.DetailFragement
 
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -24,7 +23,11 @@ import com.example.projetbar.ui.home.HomeViewModel
 
 class MapsFragment : Fragment() {
 
-    private lateinit var _binding: FragmentMapsBinding
+    companion object {
+        fun newInstance() = MapsFragment()
+    }
+
+    private var _binding: FragmentMapsBinding? = null
     private val viewModel: HomeViewModel by activityViewModels()
     private lateinit var mainActivity: MainActivity
 
@@ -34,26 +37,28 @@ class MapsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        //return inflater.inflate(R.layout.fragment_maps, container, false)
+    ): View? {
+
         _binding = FragmentMapsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
         //SetMap()
         this.mainActivity.currentFragment = "map"
 
-        return root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val mapFragment = childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
+
         mapFragment.getMapAsync { googleMap ->
             val barSelected = LatLng(viewModel.mapLat, viewModel.mapLng)
             googleMap.addMarker(MarkerOptions().position(barSelected).title(viewModel.selectedBar?.name))
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(barSelected, 15f))
         }
     }
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -63,7 +68,12 @@ class MapsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        //_binding = null
+        _binding = null
         //this.mainActivity.currentFragment = "detail"
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        println("debuggage: fragment map détruit")
     }
 }

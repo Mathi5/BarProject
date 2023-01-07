@@ -2,8 +2,8 @@ package com.example.projetbar
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -13,9 +13,11 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.projetbar.databinding.ActivityMainBinding
+import com.example.projetbar.ui.dashboard.DashboardFragment
 import com.example.projetbar.ui.detail.DetailFragement
 import com.example.projetbar.ui.home.HomeFragment
 import com.example.projetbar.ui.home.HomeViewModel
+import com.example.projetbar.ui.map.MapsFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -52,23 +54,26 @@ class MainActivity : AppCompatActivity() {
         currentFragment = "detail"
 
         //binding.navView.removeAllViews()
-        removeFragment(HomeFragment())
-        HomeFragment().onDestroyView()
+        //HomeFragment().onDestroy()
 
-        addFragment(R.id.nav_host_fragment_activity_main, DetailFragement())
+        //addFragment(R.id.nav_host_fragment_activity_main, DetailFragement())
         replaceFragment(R.id.nav_host_fragment_activity_main, DetailFragement())
+        //replaceFragment(R.id.homeFragment, DetailFragement())
     }
 
     fun goMap(){
 
+        viewModel.inMap = true
+
         currentFragment = "map"
 
         var fr = supportFragmentManager
-        binding.navView.removeAllViews()
-        addFragment(R.id.frameLayout, MapsFragment())
-        replaceFragment(R.id.frameLayout, MapsFragment())
-        removeFragment(DetailFragement())
-        println("maplog : map fragment displayed")
+        //binding.navView.removeAllViews()
+        //removeFragment(DetailFragement())
+        //addFragment(R.id.frameLayout, MapsFragment())
+
+        replaceFragment(R.id.nav_host_fragment_activity_main, MapsFragment())
+        //replaceFragment(R.id.frameLayout, MapsFragment())
     }
 
     fun FragmentManager.doTransaction(func: FragmentTransaction.() ->
@@ -89,14 +94,28 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
     fun goBackHome () {
         //binding.navView.removeAllViews()
 
-        removeFragment(DetailFragement())
-        DetailFragement().onDestroyView()
+        //removeFragment(DetailFragement())
+        //DetailFragement().onDestroy()
 
         //addFragment(R.id.nav_host_fragment_activity_main, HomeFragment())
-        replaceFragment(R.id.nav_host_fragment_activity_main, HomeFragment())
+        if (viewModel.clicOrigin == "list") {
+            replaceFragment(R.id.nav_host_fragment_activity_main, HomeFragment())
+
+            //replaceFragment(R.id.frameLayout, HomeFragment())
+            //supportFragmentManager.findFragmentById(R.id.frameLayout)?.let { removeFragment(it) }
+        } else if (viewModel.clicOrigin == "map") {
+            replaceFragment(R.id.nav_host_fragment_activity_main, DashboardFragment())
+
+            //replaceFragment(R.id.frameLayout, DashboardFragment())
+            //removeFragment(DetailFragement())
+        }
+
+        //replaceFragment(R.id.frameLayout, HomeFragment())
+
         viewModel.inDetail = false
         currentFragment = "home"
     }
@@ -104,11 +123,15 @@ class MainActivity : AppCompatActivity() {
     fun goBackDetail () {
         //binding.navView.removeAllViews()
 
-        removeFragment(MapsFragment())
-        MapsFragment().onDestroyView()
+        viewModel.inMap = false
+
+        //removeFragment(MapsFragment())
+        //MapsFragment().onDestroy()
         //addFragment(R.id.nav_host_fragment_activity_main, HomeFragment())
-        replaceFragment(R.id.nav_host_fragment_activity_main, DetailFragement())
-        viewModel.inDetail = false
+
+        //replaceFragment(R.id.nav_host_fragment_activity_main, DetailFragment())
+        replaceFragment(R.id.map_fragment, DetailFragement())
+        viewModel.inDetail = true
         currentFragment = "detail"
     }
 

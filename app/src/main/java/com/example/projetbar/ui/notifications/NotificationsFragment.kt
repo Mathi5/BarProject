@@ -20,6 +20,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.projetbar.MainActivity
 import com.example.projetbar.R
 import com.example.projetbar.databinding.FragmentNotificationsBinding
+import com.example.projetbar.ui.home.HomeViewModel
+import com.example.projetbar.ui.map.MapsFragment
 import nl.adaptivity.xmlutil.serialization.structure.PolymorphicMode.*
 
 
@@ -42,13 +44,13 @@ class NotificationsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val notificationsViewModel =
-            ViewModelProvider(this).get(NotificationsViewModel::class.java)
+            ViewModelProvider(this).get(HomeViewModel::class.java)
 
         _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         textView = binding.textNotifications
-        notificationsViewModel.text.observe(viewLifecycleOwner) {
+        notificationsViewModel.textAlcootest.observe(viewLifecycleOwner) {
             textView.text = it
         }
 
@@ -59,6 +61,7 @@ class NotificationsFragment : Fragment() {
         gyroscopeSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 
         image_alcootest = binding.imageAlcootest
+
 
         return root
     }

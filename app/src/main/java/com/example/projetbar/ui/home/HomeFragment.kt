@@ -57,6 +57,7 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
         }
 
         val mListBars = mutableListOf<Bar>()
+        //mListBars.clear()
         itemAdapter = ItemAdapter.ItemAdapter(mListBars,this)
         binding.rvItem.adapter = itemAdapter
 
@@ -70,24 +71,6 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
         this.mainActivity.currentFragment = "home"
 
         return root
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        this.mainActivity = context as MainActivity
-
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-        println("backbutton: onDestroyView")
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
-
     }
 
     fun requestGoogle(lat: String, long: String){
@@ -148,10 +131,33 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
     override fun onbarclicked(bar: Bar) {
         if (!viewModel.inDetail){
             viewModel.inDetail = true
+            viewModel.clicOrigin = "list"
             Log.wtf("wtf", "bar name: " + bar.name)
             viewModel.getSelectedBar(bar)
             mainActivity.goBar()
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        this.mainActivity = context as MainActivity
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        println("debuggage: fragment home détruit")
     }
 
 }

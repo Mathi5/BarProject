@@ -63,7 +63,8 @@
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/image_du_bar" />
 
     <ImageView
         android:id="@+id/imageMap"
@@ -73,7 +74,8 @@
         android:src="@drawable/ic_loc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/open" />
+        app:layout_constraintTop_toBottomOf="@+id/open"
+        android:contentDescription="@string/icone_maps" />
 
     <Button
         android:id="@+id/BackDetailButton"
@@ -83,7 +85,7 @@
         android:layout_marginTop="22dp"
         android:layout_marginEnd="11dp"
         android:layout_marginBottom="179dp"
-        android:text="Retour"
+        android:text="@string/retour"
         app:layout_constraintBottom_toTopOf="@+id/name"
         app:layout_constraintEnd_toStartOf="@+id/imageBar"
         app:layout_constraintStart_toStartOf="parent"
