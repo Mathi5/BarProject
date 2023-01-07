@@ -142,6 +142,16 @@ class HomeViewModel : ViewModel() {
         println("maplog : getPosition - mapLat = $mapLat , mapLng = $mapLng")
     }
 
+    fun getBarByName(name: String): Bar {
+        lateinit var selectedBar: Bar
+        for (bar in listBars) {
+            if (name == bar.name) {
+                selectedBar = bar
+            }
+        }
+        return selectedBar
+    }
+
     /*suspend fun getPhoto(ref: String): String {
         val client = HttpClient(CIO) {
             install(ContentNegotiation){

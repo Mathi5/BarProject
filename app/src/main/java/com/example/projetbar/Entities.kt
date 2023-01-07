@@ -44,4 +44,6 @@ class Bar(result: Result, crntLocation: Location) {
     override fun toString(): String {
         return this.name + " " + this.openingHours + " " + this.rating + " " + this.vicinity + " " + this.photo
     }
+
+    
 }

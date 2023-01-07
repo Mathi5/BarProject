@@ -40,6 +40,7 @@ class MapsFragment : Fragment() {
         val root: View = binding.root
 
         //SetMap()
+        this.mainActivity.currentFragment = "map"
 
         return root
     }
@@ -51,7 +52,6 @@ class MapsFragment : Fragment() {
             val barSelected = LatLng(viewModel.mapLat, viewModel.mapLng)
             googleMap.addMarker(MarkerOptions().position(barSelected).title(viewModel.selectedBar?.name))
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(barSelected, 15f))
-            println("maplog : map callback - lat = "+viewModel.mapLat+" lng = "+viewModel.mapLng)
         }
     }
 
@@ -64,6 +64,6 @@ class MapsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         //_binding = null
-        this.mainActivity.currentFragment = "detail"
+        //this.mainActivity.currentFragment = "detail"
     }
 }
