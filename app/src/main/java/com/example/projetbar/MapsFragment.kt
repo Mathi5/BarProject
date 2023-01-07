@@ -26,27 +26,9 @@ class MapsFragment : Fragment() {
 
     private lateinit var _binding: FragmentMapsBinding
     private val viewModel: HomeViewModel by activityViewModels()
-    //private lateinit var mainActivity: MainActivity
+    private lateinit var mainActivity: MainActivity
 
     private val binding get() = _binding
-
-    /*private val callback = OnMapReadyCallback { googleMap ->
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
-
-        val barSelected = LatLng(viewModel.mapLat, viewModel.mapLng)
-        googleMap.addMarker(MarkerOptions().position(barSelected).title("Marker on selected bar"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(barSelected))
-        println("maplog : map callback - lat = "+viewModel.mapLat+" lng = "+viewModel.mapLng)
-    }*/
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,10 +53,9 @@ class MapsFragment : Fragment() {
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(barSelected, 15f))
             println("maplog : map callback - lat = "+viewModel.mapLat+" lng = "+viewModel.mapLng)
         }
-        //println("maplog : map loaded")
     }
 
-    /*override fun onAttach(context: Context) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         this.mainActivity = context as MainActivity
 
@@ -84,5 +65,5 @@ class MapsFragment : Fragment() {
         super.onDestroyView()
         //_binding = null
         this.mainActivity.currentFragment = "detail"
-    }*/
+    }
 }

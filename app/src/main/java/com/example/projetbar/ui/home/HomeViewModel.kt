@@ -31,6 +31,8 @@ class HomeViewModel : ViewModel() {
     var mapLng: Double = 0.0
 
     lateinit var currentLoc: Location
+    var currentLat: Double = 0.0
+    var currentLng: Double = 0.0
 
     var _detailBarName= MutableLiveData<String>()
     var detailBarName:LiveData<String> =  _detailBarName
@@ -44,6 +46,8 @@ class HomeViewModel : ViewModel() {
     var detailBarPhoto:LiveData<String> = _detailBarPhoto
 
     var inDetail: Boolean = false
+
+    var listBars = mutableListOf<Bar>()
 
     fun getSelectedBar(bar: Bar) {
         selectedBar = bar
@@ -79,7 +83,7 @@ class HomeViewModel : ViewModel() {
         println("maplog : HomeViewModel/getSelectedBar - mapLat = $mapLat , mapLng = $mapLng")
     }
 
-    var listBars = mutableListOf<Bar>()
+    //var listBars = mutableListOf<Bar>()
 
     val _text = MutableLiveData<String>().apply {
         value = "Liste des Bars :"
