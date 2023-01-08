@@ -105,20 +105,20 @@ class MainActivity : AppCompatActivity() {
 
         //addFragment(R.id.nav_host_fragment_activity_main, HomeFragment())
         if (viewModel.clicOrigin == "list") {
-            //replaceFragment(R.id.nav_host_fragment_activity_main, HomeFragment())
+            replaceFragment(R.id.nav_host_fragment_activity_main, HomeFragment())
             //supportFragmentManager.popBackStackImmediate()
             //removeFragment(DetailFragement())
 
-            replaceFragment(R.id.frameLayout, HomeFragment())
+            //replaceFragment(R.id.frameLayout, HomeFragment())
             /*supportFragmentManager.findFragmentById(R.id.frameLayout)?.let {
                 removeFragment(it)
                 println("debuggage: fragment trouvé")
             }*/
         } else if (viewModel.clicOrigin == "map") {
-            //replaceFragment(R.id.nav_host_fragment_activity_main, DashboardFragment())
+            replaceFragment(R.id.nav_host_fragment_activity_main, DashboardFragment())
             //supportFragmentManager.popBackStackImmediate()
 
-            replaceFragment(R.id.frameLayout, DashboardFragment())
+            //replaceFragment(R.id.frameLayout, DashboardFragment())
             //removeFragment(DetailFragement())
         }
 

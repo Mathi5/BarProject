@@ -110,14 +110,14 @@ class NotificationsFragment : Fragment() {
                 getContext()?.getResources()
                     ?.let {
                         image_alcootest.setColorFilter(it.getColor(R.color.yellow))
-                        binding.root.setBackgroundColor(R.color.background_black)
+                        //binding.root.setBackgroundColor(R.color.background_black)
                     }
             }
             Configuration.UI_MODE_NIGHT_NO -> {
                 getContext()?.getResources()
                     ?.let {
                         image_alcootest.setColorFilter(it.getColor(R.color.black))
-                        binding.root.setBackgroundColor(R.color.yellow)
+                        //binding.root.setBackgroundColor(R.color.yellow)
                     }
             }
         }
