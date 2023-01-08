@@ -1,5 +1,6 @@
 package com.example.projetbar.ui.notifications
 
+import android.annotation.SuppressLint
 import android.content.Context.SENSOR_SERVICE
 import android.content.res.Configuration
 import android.graphics.Color
@@ -98,6 +99,7 @@ class NotificationsFragment : Fragment() {
         sensorManager.unregisterListener(gyroscopeSensorListener)
     }
 
+    @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val nightModeFlags =
@@ -106,13 +108,17 @@ class NotificationsFragment : Fragment() {
         when (nightModeFlags) {
             Configuration.UI_MODE_NIGHT_YES -> {
                 getContext()?.getResources()
-                    ?.let { image_alcootest.setColorFilter(it.getColor(R.color.yellow)) }
-                //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    ?.let {
+                        image_alcootest.setColorFilter(it.getColor(R.color.yellow))
+                        binding.root.setBackgroundColor(R.color.background_black)
+                    }
             }
             Configuration.UI_MODE_NIGHT_NO -> {
                 getContext()?.getResources()
-                    ?.let { image_alcootest.setColorFilter(it.getColor(R.color.black)) }
-                //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    ?.let {
+                        image_alcootest.setColorFilter(it.getColor(R.color.black))
+                        binding.root.setBackgroundColor(R.color.yellow)
+                    }
             }
         }
     }

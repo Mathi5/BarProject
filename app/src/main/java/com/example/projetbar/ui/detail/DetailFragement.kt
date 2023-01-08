@@ -104,6 +104,7 @@ class DetailFragement : Fragment() {
             mainActivity.goBackHome()
         }*/
 
+
         detailViewModel.initTextView()
 
         return binding.root
@@ -146,5 +147,6 @@ class DetailFragement : Fragment() {
         super.onDestroy()
         println("debuggage: fragment detail détruit")
     }
+
 
 }

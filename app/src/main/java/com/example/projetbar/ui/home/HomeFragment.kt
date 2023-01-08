@@ -1,8 +1,10 @@
 package com.example.projetbar.ui.home
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
@@ -20,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projetbar.Bar
 import com.example.projetbar.MainActivity
+import com.example.projetbar.R
 import com.example.projetbar.databinding.FragmentHomeBinding
 import com.example.projetbar.ui.detail.DetailFragement
 import kotlinx.coroutines.launch
@@ -160,4 +163,5 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
         println("debuggage: fragment home détruit")
     }
 
-}
+    }
+
