@@ -82,10 +82,10 @@ class HomeViewModel : ViewModel() {
         }
         detailBarVicinity = _detailBarVicinity
 
-        _detailBarPhoto = MutableLiveData<String>().apply {
+        /*_detailBarPhoto = MutableLiveData<String>().apply {
             value = bar.photo
         }
-        detailBarPhoto = _detailBarPhoto
+        detailBarPhoto = _detailBarPhoto*/
 
         getPosition(bar)
 
