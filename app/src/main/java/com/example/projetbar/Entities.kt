@@ -22,8 +22,11 @@ class Bar(result: Result, crntLocation: Location) {
         vicinity = result.vicinity
         lat = result.geometry.location.lat
         lng = result.geometry.location.lng
-        //photo = result.photos[0].photo_reference
-        //println("debug : "+photo)
+        /*if (result.photos[0] != null) {
+            photo = result.photos[0].photo_reference
+        }*/
+
+        //println("debuggage : "+photo)
 
         //Récupérer la distance du bar
 

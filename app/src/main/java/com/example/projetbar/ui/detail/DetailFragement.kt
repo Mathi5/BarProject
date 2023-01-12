@@ -38,7 +38,7 @@ class DetailFragement : Fragment() {
     private lateinit var photoUri: Uri
 
 
-    @SuppressLint("SetTextI18n")
+    //@SuppressLint("SetTextI18n")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val detailViewModel =
@@ -72,7 +72,7 @@ class DetailFragement : Fragment() {
 
         }
 
-        detailViewModel.detailBarPhoto.observe(viewLifecycleOwner) {
+        /*detailViewModel.detailBarPhoto.observe(viewLifecycleOwner) {
             photoRef = it
             println("xyz: init photoref")
             lifecycleScope.launch {
@@ -96,7 +96,19 @@ class DetailFragement : Fragment() {
                     .centerCrop()
                     .into(photoBar)
             }
-        }
+        }*/
+
+        photoUri = Uri.parse("")
+        val photoBar: ImageView = binding.imageBar
+
+        Glide.with(mainActivity)
+            .load(photoUri)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .placeholder(R.drawable.ic_no_photo)
+            .error(R.drawable.ic_no_photo)
+            .override(400, 400)
+            .centerCrop()
+            .into(photoBar)
 
         /*val buttonBack : Button = binding.BackDetailButton
 

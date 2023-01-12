@@ -36,7 +36,8 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
     private lateinit var itemAdapter : ItemAdapter.ItemAdapter
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var mainActivity: MainActivity
-    private var isAlreadyCreate = false;
+    private var isAlreadyCreate = false
+    private val LOCATION_PERMISSION_REQUEST = 1
 
 
     // This property is only valid between onCreateView and
@@ -67,7 +68,7 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
         binding.rvItem.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL,false)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-        getLastKnownLocation()
+        //getLastKnownLocation()
 
         println("backbutton: onCreateView")
 
@@ -88,7 +89,7 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
 
     override fun onResume() {
         super.onResume()
-
+        getLastKnownLocation()
     }
 
     fun getLastKnownLocation() {
@@ -96,9 +97,6 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
         if (ActivityCompat.checkSelfPermission(
                 requireActivity(),
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                requireActivity(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             // TODO: Consider calling
@@ -108,6 +106,7 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST)
             println("abcd : pas de permission")
             return
         }
@@ -130,6 +129,21 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
             }
 
     }
+
+    /*override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        println("abcd : résultat permission")
+        when (requestCode) {
+            LOCATION_PERMISSION_REQUEST -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    println("abcd : permission obtenue")
+                    //getLastKnownLocation()
+                } else {
+                    println("abcd : toujours pas de permission")
+                }
+                return
+            }
+        }
+    }*/
 
     override fun onbarclicked(bar: Bar) {
         if (!viewModel.inDetail){
