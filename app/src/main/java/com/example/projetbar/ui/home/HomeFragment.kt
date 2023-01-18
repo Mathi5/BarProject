@@ -68,7 +68,7 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
         binding.rvItem.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL,false)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-        //getLastKnownLocation()
+        getLastKnownLocation()
 
         println("backbutton: onCreateView")
 
@@ -90,6 +90,7 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
     override fun onResume() {
         super.onResume()
         getLastKnownLocation()
+        println("debuggage : onResume")
     }
 
     fun getLastKnownLocation() {
