@@ -1,5 +1,6 @@
 package com.example.projetbar
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -49,15 +50,11 @@ class MainActivity : AppCompatActivity() {
     fun goBar(){
         Log.wtf("wtf", "selected bar " + viewModel.selectedBar?.name )
 
+        //replaceFragment(R.id.nav_host_fragment_activity_main, DetailFragement())
 
-        //binding.navView.removeAllViews()
-        //HomeFragment().onDestroy()
+        val intent = Intent(this, DetailActivity::class.java)
+        startActivity(intent)
 
-        //addFragment(R.id.nav_host_fragment_activity_main, DetailFragement())
-
-        replaceFragment(R.id.nav_host_fragment_activity_main, DetailFragement())
-
-        //replaceFragment(R.id.homeFragment, DetailFragement())
     }
 
     fun FragmentManager.doTransaction(func: FragmentTransaction.() ->

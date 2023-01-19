@@ -1,9 +1,11 @@
 package com.example.projetbar
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -27,16 +29,31 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //mainActivity = MainActivity()
+
+        //viewModel = ViewModelProvider(mainActivity).get(HomeViewModel::class.java)
+
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+
+
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
 
         val navController = findNavController(R.id.nav_host_fragment_content_detail)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        //appBarConfiguration = AppBarConfiguration(navController.graph)
+        //setupActionBarWithNavController(navController, appBarConfiguration)
 
+        val fragment = DetailFragement()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.nav_host_fragment_content_detail, fragment)
+            .commit()
 
+        currentFragment = "detail"
+
+        println("debuggage : DetailActivity onCreate")
 
     }
 
@@ -47,6 +64,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     fun goMap(){
+        println("debuggage : clicmap")
 
         viewModel.inMap = true
 
@@ -59,11 +77,14 @@ class DetailActivity : AppCompatActivity() {
 
     fun goBackHome () {
 
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        /*val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.remove(DetailFragement())
-        fragmentTransaction.commit()
+        fragmentTransaction.commit()*/
 
-        viewModel.inDetail = false
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+
+        //viewModel.inDetail = false
         currentFragment = "home"
     }
 
@@ -72,7 +93,7 @@ class DetailActivity : AppCompatActivity() {
         viewModel.inMap = false
 
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.remove(MapsFragment())
+        fragmentTransaction.replace(R.id.nav_host_fragment_content_detail, DetailFragement())
         fragmentTransaction.commit()
 
         viewModel.inDetail = true
@@ -86,4 +107,5 @@ class DetailActivity : AppCompatActivity() {
             goBackDetail()
         }
     }
+
 }

@@ -57,6 +57,7 @@ class MapsFragment : Fragment() {
             val barSelected = LatLng(viewModel.mapLat, viewModel.mapLng)
             googleMap.addMarker(MarkerOptions().position(barSelected).title(viewModel.selectedBar?.name))
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(barSelected, 15f))
+            println("debuggage : ${viewModel.mapLat} ${viewModel.mapLng}")
         }
     }
 
