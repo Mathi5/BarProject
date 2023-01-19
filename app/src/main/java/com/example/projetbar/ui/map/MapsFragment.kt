@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import com.example.projetbar.DetailActivity
 import com.example.projetbar.MainActivity
 import com.example.projetbar.R
 import com.example.projetbar.databinding.FragmentMapsBinding
@@ -29,7 +30,7 @@ class MapsFragment : Fragment() {
 
     private var _binding: FragmentMapsBinding? = null
     private val viewModel: HomeViewModel by activityViewModels()
-    private lateinit var mainActivity: MainActivity
+    private lateinit var detailActivity: DetailActivity
 
     private val binding get() = _binding
 
@@ -42,7 +43,7 @@ class MapsFragment : Fragment() {
         _binding = FragmentMapsBinding.inflate(inflater, container, false)
 
         //SetMap()
-        this.mainActivity.currentFragment = "map"
+        this.detailActivity.currentFragment = "map"
 
         return binding?.root
     }
@@ -62,7 +63,7 @@ class MapsFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        this.mainActivity = context as MainActivity
+        this.detailActivity = context as DetailActivity
 
     }
 

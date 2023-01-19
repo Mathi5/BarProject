@@ -15,4 +15,13 @@
         <item name="android:colorBackground">@color/yellow</item>
         <item name="android:navigationBarColor">@color/black</item>
     </style>
+
+    <style name="Theme.ProjetBar.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.ProjetBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.ProjetBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <uses-feature
         android:name="android.hardware.sensor.gyroscope"
         android:required="true" />
@@ -20,7 +21,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetBar"
         tools:targetApi="31">
-
+        <activity
+            android:name=".DetailActivity"
+            android:exported="false"
+            android:label="@string/title_activity_detail"
+            android:theme="@style/Theme.ProjetBar.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -49,12 +58,10 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-
             <meta-data
                 android:name="com.google.android.geo.API_KEY"
                 android:value="${GOOGLE_MAPS_API_KEY}" />
         </activity>
-
     </application>
 
 </manifest>

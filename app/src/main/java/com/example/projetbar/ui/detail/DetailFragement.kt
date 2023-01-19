@@ -15,6 +15,7 @@ import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.projetbar.DetailActivity
 import com.example.projetbar.MainActivity
 import com.example.projetbar.R
 import com.example.projetbar.databinding.FragmentDetailFragementBinding
@@ -30,7 +31,8 @@ class DetailFragement : Fragment() {
     private var _binding: FragmentDetailFragementBinding? = null
     private lateinit var viewModel: HomeViewModel
     //private val viewModel: HomeViewModel by activityViewModels()
-    private lateinit var mainActivity: MainActivity
+    //private lateinit var mainActivity: MainActivity
+    private lateinit var detailActivity: DetailActivity
     private val binding get() = _binding!!
     private lateinit var btnMap: ImageView
     private lateinit var photoRef: String
@@ -101,7 +103,7 @@ class DetailFragement : Fragment() {
         photoUri = Uri.parse("")
         val photoBar: ImageView = binding.imageBar
 
-        Glide.with(mainActivity)
+        Glide.with(detailActivity)
             .load(photoUri)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .placeholder(R.drawable.ic_no_photo)
@@ -136,7 +138,7 @@ class DetailFragement : Fragment() {
         btnMap = view?.findViewById(R.id.imageMap) as ImageView
         btnMap.setOnClickListener {
             println("maplog : button clicked")
-            mainActivity.goMap()
+            detailActivity.goMap()
         }
 
 
@@ -145,7 +147,7 @@ class DetailFragement : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        this.mainActivity = context as MainActivity
+        this.detailActivity = context as DetailActivity
 
     }
 

@@ -72,7 +72,7 @@ class HomeFragment : Fragment() , ItemAdapter.OnBarCLickedListener {
 
         println("backbutton: onCreateView")
 
-        this.mainActivity.currentFragment = "home"
+        //this.mainActivity.currentFragment = "home"
 
         return root
     }
