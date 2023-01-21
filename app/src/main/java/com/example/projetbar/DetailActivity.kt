@@ -23,7 +23,8 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private lateinit var viewModel: HomeViewModel
     lateinit var currentFragment: String
-    private lateinit var mainActivity: MainActivity
+    //private lateinit var mainActivity: MainActivity
+    lateinit var barName: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +54,10 @@ class DetailActivity : AppCompatActivity() {
 
         currentFragment = "detail"
 
-        println("debuggage : DetailActivity onCreate")
+        val intent = getIntent()
+        barName = intent.getStringExtra("barName").toString()
+
+        //println("debuggage : DetailActivity onCreate")
 
     }
 

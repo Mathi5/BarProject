@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         //replaceFragment(R.id.nav_host_fragment_activity_main, DetailFragement())
 
         val intent = Intent(this, DetailActivity::class.java)
+        intent.putExtra("barName", viewModel.selectedBar?.name)
         startActivity(intent)
 
     }
