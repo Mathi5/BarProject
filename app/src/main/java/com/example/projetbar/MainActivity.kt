@@ -54,6 +54,12 @@ class MainActivity : AppCompatActivity() {
 
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra("barName", viewModel.selectedBar?.name)
+        intent.putExtra("barOpen", viewModel.selectedBar?.openingHours)
+        intent.putExtra("barRating", viewModel.selectedBar?.rating)
+        intent.putExtra("barVicinity", viewModel.selectedBar?.vicinity)
+        intent.putExtra("barLat", viewModel.selectedBar?.lat)
+        intent.putExtra("barLng", viewModel.selectedBar?.lng)
+        //intent.putExtra("barDist", viewModel.selectedBar?.distance)
         startActivity(intent)
 
     }

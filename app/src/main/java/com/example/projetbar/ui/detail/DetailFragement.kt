@@ -48,11 +48,20 @@ class DetailFragement : Fragment() {
         _binding = FragmentDetailFragementBinding.inflate(inflater, container, false)
 
 
-        detailViewModel.detailBarName.observe(viewLifecycleOwner) {
+        /*detailViewModel.detailBarName.observe(viewLifecycleOwner) {
             binding.name.text = "Nom : $it"
-        }
+        }*/
 
-        val textOpen: TextView = binding.open
+        binding.name.text = detailActivity.barName
+        if (detailActivity.barOpen) {
+            binding.open.text = "Ouvert"
+        } else {
+            binding.open.text = "Fermé"
+        }
+        binding.ratings.text = "Note : "+detailActivity.barRating
+        binding.vicinity.text = "Adresse : "+detailActivity.barVicinity
+
+        /*val textOpen: TextView = binding.open
         detailViewModel.detailBarOpen.observe(viewLifecycleOwner) {
             if (it == "true" ) {
                 textOpen.text = "Ouvert"
@@ -72,7 +81,7 @@ class DetailFragement : Fragment() {
         detailViewModel.detailBarVicinity.observe(viewLifecycleOwner) {
             textVicinity.text = "adresse : $it"
 
-        }
+        }*/
 
         /*detailViewModel.detailBarPhoto.observe(viewLifecycleOwner) {
             photoRef = it

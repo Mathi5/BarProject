@@ -24,8 +24,13 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var viewModel: HomeViewModel
     lateinit var currentFragment: String
     //private lateinit var mainActivity: MainActivity
-    lateinit var barName: String
-
+    var barName: String = ""
+    var barOpen: Boolean = false
+    var barVicinity: String = ""
+    var barLat: Double = 0.0
+    var barLng: Double = 0.0
+    //var barDist: Double = 0.0
+    var barRating: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +61,12 @@ class DetailActivity : AppCompatActivity() {
 
         val intent = getIntent()
         barName = intent.getStringExtra("barName").toString()
+        barOpen = intent.getBooleanExtra("barOpen", false)
+        barRating = intent.getDoubleExtra("barRating", 0.0)
+        barVicinity = intent.getStringExtra("barVicinity").toString()
+        barLat = intent.getDoubleExtra("barLat", 0.0)
+        barLng = intent.getDoubleExtra("barLng", 0.0)
+        //barDist = intent.getDoubleExtra("barDist", 0.0)
 
         //println("debuggage : DetailActivity onCreate")
 

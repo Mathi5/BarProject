@@ -54,10 +54,10 @@ class MapsFragment : Fragment() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
 
         mapFragment.getMapAsync { googleMap ->
-            val barSelected = LatLng(viewModel.mapLat, viewModel.mapLng)
-            googleMap.addMarker(MarkerOptions().position(barSelected).title(viewModel.selectedBar?.name))
+            val barSelected = LatLng(detailActivity.barLat, detailActivity.barLng)
+            googleMap.addMarker(MarkerOptions().position(barSelected).title(detailActivity.barName))
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(barSelected, 15f))
-            println("debuggage : ${viewModel.mapLat} ${viewModel.mapLng}")
+            //println("debuggage : ${viewModel.mapLat} ${viewModel.mapLng}")
         }
     }
 
